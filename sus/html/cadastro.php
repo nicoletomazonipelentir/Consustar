@@ -1,7 +1,46 @@
 <?php
 if(isset($_POST['submit'])){
-    echo "uaaaaaaaaaaa";
-    print_r($_POST);
+    include_once('cadastro.php');
+
+    $nome_completo=$_POST['nome_completo'];
+    $cpf=$_POST['cpf'];
+    $endereco=$_POST['endereco'];
+    $bairro=$_POST['bairro'];
+    $telefone=$_POST['telefone'];
+    $email=$_POST['email'];
+    $data_nascimento=$_POST['data_nascimento'];
+    $numero=$_POST['numero'];
+    $cep=$_POST['cep'];
+    $cidade=$_POST['cidade'];
+    $estado=$_POST['estado'];
+    $carteirinha_sus="";
+    $senha="1234";
+    $confirma_senha="1234";
+
+    // $result=mysqli_query($conn, "insert into cadastro 
+    // (nome_completo, email, cpf, data_nascimento, telefone, carteirinha_sus, endereco, numero, cidade, estado, cep, senha, confirma_senha) values
+    // (
+    //     '{$paciente->getNomeCompleto()}',
+    //     '{$paciente->getEmail()}',
+    //     '{$paciente->getCpf()}',
+    //     '{$paciente->getDataNascimento()}',
+    //     '{$paciente->getTelefone()}', 
+    //     '{$paciente->getCarteirinhaSus()}',
+    //     '{$paciente->getEndereco()}',
+    //     '{$paciente->getNumero()}',
+    //     '{$paciente->getCidade()}',
+    //     '{$paciente->getEstado()}'
+    //     '{$paciente->getCep()}'
+    //     '{$senhaCripto1}',
+    //     '{$senhaCripto2}'
+    // )")
+
+    $result=mysqli_query($conn, "insert into cadastro 
+    (nome_completo, email, cpf, data_nascimento, telefone, carteirinha_sus, endereco, numero, cidade, estado, cep, senha, confirma_senha) values
+    (
+    '$nome_completo,'$email','$cpf','$data_nascimento','$telefone', '$carteirinha_sus','$endereco','$numero','$cidade','$estado','$cep','$senha','$confirma_senha'
+    )");
+
 }
 
 ?>
@@ -17,7 +56,7 @@ if(isset($_POST['submit'])){
 </head>
 <body>
     <div id="area">
-        <form id="cadastro" autocomplete="off" action="" method="POST">//descobrir o q colocar no action
+        <form id="cadastro" autocomplete="off" action="cadastro.php" method="POST">//colocar no action:cadastrar_paciente.php
             <fieldset>
                 <div class="classenome">
                     <label id="nome" for="floatingInput" >Nome Completo</label>
@@ -76,7 +115,7 @@ if(isset($_POST['submit'])){
                 <div class="classeCidade">
                     <label id="cidade" for="floatingInput">Cidade</label>
                     <br>
-                    <input id="cidade" type="city" class="form-control" id="floatingInput" placeholder="">
+                    <input id="cidade" type="city" class="form-control" id="floatingInput" placeholder="" name="cidade">
                 </div>
 
                 <div class="classeEstado">
@@ -86,7 +125,7 @@ if(isset($_POST['submit'])){
                 </div>
                 //falta a senha, confirma senha e carteirinha do sus
 
-                <button id="bCadastrar" class="btn btn-primary" type="submit">Cadastrar</button>
+                <input  id="bCadastrar submit" class="btn btn-primary" type="submit" name="submit">Cadastrar</button>
                 
 
             </fieldset>
