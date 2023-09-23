@@ -8,6 +8,3 @@ $result=$conn->query($sql);
 
 print_r($result);
 
-function insert(string $table,){
-
-}

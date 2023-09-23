@@ -28,20 +28,20 @@ class CadastroDAO{
             '{$paciente->getCidade()}',
             '{$paciente->getEstado()}'
             '{$paciente->getCep()}'
-            '{$senhaCripto}',
-            '{$senhaCripto}'
+            '{$senhaCripto1}',
+            '{$senhaCripto2}'
         )";
             
-
-        $conexao = ConexaoBD::getConexao();
-        return $conexao->query($sql);
+        $conn = ConexaoBD();
+        return $conn->query($sql);//acho
+        $conn->close();
     }
 
     public function validarCliente(Paciente $cliente){
         $senhaCripto = md5($cliente->getSenha());
         $sql = "select * from clientes where email='{$cliente->getEmail()}' and senha='$senhaCripto'";
 
-        $conexao = ConexaoBD::getConexao();
+        $conexao = ConexaoBD();
         $stmt = $conexao->query($sql);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
