@@ -9,7 +9,7 @@ if (isset($_POST['submit']) && !empty($_POST['cpf']) && !empty($_POST['senha']))
     
 
 }else{//não entra
-    header('Location:../index.php');
+    header('Location:../inicial.html');
 
 }
 
