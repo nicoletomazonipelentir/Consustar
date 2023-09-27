@@ -8,7 +8,7 @@
 </head>
 <body>
     <div id="area">
-        <form id="login" autocomplete="off" action="src/teste.php" method="POST">
+        <form id="login" autocomplete="off" action="/src/teste.php" method="POST">
             <fieldset>
                 <div class="classecpf">
                     <label id="cpf" for="floatingInput">CPF</label>
