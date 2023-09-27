@@ -85,7 +85,7 @@ $data_formatada = date('Y-m-d', strtotime($data_original));
                 <div class="classecpf">
                     <label id="cpf" for="floatingInput">CPF</label>
                     <br>
-                    <input id="cpf" type="cpf" class="form-control" id="floatingInput" placeholder="111.111.111-11"name="cpf">
+                    <input id="cpf" type="cpf" class="form-control" id="floatingInput" placeholder="Apenas os números"name="cpf">
                 </div>
 
                 <div class="classeEndereço">
@@ -156,7 +156,7 @@ $data_formatada = date('Y-m-d', strtotime($data_original));
                     <br>
                     <input id="estado" type="state" class="form-control" id="floatingInput" placeholder="" name="estado"> <!--da pra botar isso com o bagulho da caixinha de selecionar-->
                 </div>
-                //falta a senha, confirma senha e carteirinha do sus
+                
 
                 <input  id="bCadastrar submit" class="btn btn-primary" type="submit" name="submit">Cadastrar</input>
                 
