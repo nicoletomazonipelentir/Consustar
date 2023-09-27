@@ -1,7 +1,5 @@
 <?php
-
-require ('conexao.php');
-
+require ("/src/conexao.php");
 class CadastroDAO{
 
     public function cadastrarPaciente(Paciente $paciente){

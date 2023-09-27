@@ -1,6 +1,23 @@
 <?php
+
+
 if(isset($_POST['submit'])){
-    include_once('cadastro.php');
+    include_once('../Banco/src/conexao.php');
+
+// print_r($_POST['nome_completo']);
+// print_r('<br>');
+// print_r($_POST['cpf']);
+// print_r('<br>');
+// print_r($_POST['endereco']);
+// print_r('<br>');
+// print_r($_POST['bairro']);
+// print_r('<br>');
+// print_r($_POST['telefone']);
+// print_r('<br>');
+// print_r($_POST['email']);
+
+$data_original = $_POST['data_nascimento'];
+$data_formatada = date('Y-m-d', strtotime($data_original));
 
     $nome_completo=$_POST['nome_completo'];
     $cpf=$_POST['cpf'];
@@ -8,14 +25,16 @@ if(isset($_POST['submit'])){
     $bairro=$_POST['bairro'];
     $telefone=$_POST['telefone'];
     $email=$_POST['email'];
-    $data_nascimento=$_POST['data_nascimento'];
+    $data_nascimento=$data_formatada;
     $numero=$_POST['numero'];
     $cep=$_POST['cep'];
     $cidade=$_POST['cidade'];
     $estado=$_POST['estado'];
-    $carteirinha_sus="";
-    $senha="1234";
-    $confirma_senha="1234";
+    $carteirinha_sus=$_POST['carteirinha_sus'];
+    $senha=$_POST['senha'];
+    $confirma_senha=$_POST['confirma_senha'];
+
+    print_r($_POST);
 
     // $result=mysqli_query($conn, "insert into cadastro 
     // (nome_completo, email, cpf, data_nascimento, telefone, carteirinha_sus, endereco, numero, cidade, estado, cep, senha, confirma_senha) values
@@ -35,12 +54,11 @@ if(isset($_POST['submit'])){
     //     '{$senhaCripto2}'
     // )")
 
-    $result=mysqli_query($conn, "insert into cadastro 
-    (nome_completo, email, cpf, data_nascimento, telefone, carteirinha_sus, endereco, numero, cidade, estado, cep, senha, confirma_senha) values
-    (
-    '$nome_completo,'$email','$cpf','$data_nascimento','$telefone', '$carteirinha_sus','$endereco','$numero','$cidade','$estado','$cep','$senha','$confirma_senha'
-    )");
+    $result=mysqli_query(ConexaoBD(),"INSERT INTO cadastro 
+    (nome_completo, email, cpf, data_nascimento, telefone, carteirinha_sus, endereco, numero, cidade, estado, cep, senha, confirma_senha) VALUES
+    ('$nome_completo','$email','$cpf','$data_nascimento','$telefone','$carteirinha_sus','$endereco','$numero','$cidade','$estado','$cep','$senha','$confirma_senha')");
 
+    $login=mysqli_query(ConexaoBD(),"INSERT INTO login(cpf, senha) VALUE ('$cpf','$senha')");
 }
 
 ?>
@@ -75,7 +93,22 @@ if(isset($_POST['submit'])){
                     <br>
                     <input id="endereço" type="endereço" class="form-control" id="floatingInput" placeholder="" name="endereco">
                 </div>
+                <div class="classeSenha">
+                    <label id="senha" for="floatingInput">Senha</label>
+                    <br>
+                    <input id="senha" type="senha" class="form-control" id="floatingInput" placeholder="" name="senha">
+                </div>
+                <div class="classeConfirmaSenha">
+                    <label id="confirma_senha" for="floatingInput">Confirma Senha</label>
+                    <br>
+                    <input id="confirma_senha" type="confirma_senha" class="form-control" id="floatingInput" placeholder="" name="confirma_senha">
+                </div>
 
+                <div class="classeCarteirinhaSUS">
+                    <label id="carteirinha_sus" for="floatingInput">Carteirinha SUS</label>
+                    <br>
+                    <input id="carteirinha_sus" type="carteirinha_sus" class="form-control" id="floatingInput" placeholder="" name="carteirinha_sus">
+                </div>
                 <div class="classeBairro">
                     <label id="bairro" for="floatingInput">Bairro</label>
                     <br>
@@ -125,7 +158,7 @@ if(isset($_POST['submit'])){
                 </div>
                 //falta a senha, confirma senha e carteirinha do sus
 
-                <input  id="bCadastrar submit" class="btn btn-primary" type="submit" name="submit">Cadastrar</button>
+                <input  id="bCadastrar submit" class="btn btn-primary" type="submit" name="submit">Cadastrar</input>
                 
 
             </fieldset>

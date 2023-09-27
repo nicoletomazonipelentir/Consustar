@@ -29,7 +29,7 @@ label#senha{
     color:rgb(108, 226, 255)
 }
 
-button#bEntrar{
+input#bEntrar{
     display: block;
     border-radius: 30px;
     border-color: aqua;
@@ -41,7 +41,7 @@ button#bEntrar{
     cursor: pointer;
 }
 
-button#bEntrar:hover{
+input#bEntrar:hover{
     border-radius: 30px;
     border-color: white;
     background-color: rgb(115, 255, 115);
