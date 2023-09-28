@@ -13,6 +13,10 @@
       unset($_SESSION['msg']);
     ?>
     <div id="area">
+    <?= $msg ?>
+    <?php
+    endif;
+    ?>
         <form id="login" autocomplete="off" action="efetua_login.php" method="POST">
             <fieldset>
                 <div class="classecpf">
