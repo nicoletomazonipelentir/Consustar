@@ -1,6 +1,6 @@
 <?php 
 
-require "conexao.php";
+require "/Banco/src/conexao.php";
 
 class PacienteDAO{
 
