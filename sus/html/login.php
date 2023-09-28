@@ -7,8 +7,13 @@
     <link rel="stylesheet" type="text/css" href="/css/stylelogin.css">
 </head>
 <body>
+<?php
+    if (isset($_SESSION['msg'])) :
+      $msg = $_SESSION['msg'];
+      unset($_SESSION['msg']);
+    ?>
     <div id="area">
-        <form id="login" autocomplete="off" action="teste.php" method="POST">
+        <form id="login" autocomplete="off" action="efetua_login.php" method="POST">
             <fieldset>
                 <div class="classecpf">
                     <label id="cpf" for="floatingInput">CPF</label>
