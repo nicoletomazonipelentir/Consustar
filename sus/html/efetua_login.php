@@ -1,12 +1,12 @@
 <?php
 session_start();
-require "src/paciente.php";
-require "src/pacienteDAO.php";
+require_once "Paciente.php";
+require_once "pacienteDAO.php";
 
 $cpf = $_POST['cpf'];
 $senha = $_POST['senha'];
 
-$paciente= new Paciente();
+$paciente= new Cadastro();
 
 $paciente->setCpf($cpf);
 $paciente->setSenha($senha);

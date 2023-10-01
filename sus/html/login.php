@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="/css/stylelogin.css">
+    <link rel="stylesheet" type="text/css" href="../css/stylelogin.css">
 </head>
 <body>
 <?php
@@ -22,7 +22,7 @@
                 <div class="classecpf">
                     <label id="cpf" for="floatingInput">CPF</label>
                     <br>
-                    <input id="cpf" type="text" class="form-control" id="floatingInput" placeholder="111.111.111-11" name="cpf">   
+                    <input id="cpfInput" type="text" class="form-control" id="floatingInput" placeholder="111.111.111-11" name="cpf">   
                 </div>
                 <div class="classesenha">
                     <label id="senha" for="floatingPassword">Senha</label>
@@ -40,5 +40,7 @@
             </fieldset>
         </form>
         <?php print_r($_POST); ?>
+
+        <script src="../js/index.js"></script>
 </body>
 </html>

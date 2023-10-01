@@ -1,9 +1,8 @@
 <?php 
 
-require "/Banco/src/conexao.php";
+require "../Banco/src/conexao.php";
 
-class PacienteDAO{
-
+class PacienteDAO {
     public function validarPaciente(Paciente $paciente){
         $senhaCripto = md5($paciente->getSenha());
         $sql = "select * from cadastro where cpf='{$paciente->getCpf()}' and senha='$senhaCripto'";
