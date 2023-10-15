@@ -13,7 +13,7 @@ $paciente->setSenha($senha);
 
 $pacienteDAO = new pacienteDAO();
 
-if ($clipacienteente = $pacienteDAO->validarpaciente($paciente)){
+if ($pacienteDAO->validarpaciente($paciente) === true) {
     
     $_SESSION['cpf'] = $paciente['cpf'];
     $_SESSION['nome_completo'] = $paciente['nome_completo'];
