@@ -6,7 +6,7 @@ require_once "pacienteDAO.php";
 $cpf = $_POST['cpf'];
 $senha = $_POST['senha'];
 
-$paciente= new Cadastro();
+$paciente= new Paciente();
 
 $paciente->setCpf($cpf);
 $paciente->setSenha($senha);

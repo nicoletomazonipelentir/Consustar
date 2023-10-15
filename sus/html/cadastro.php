@@ -75,7 +75,7 @@ $data_formatada = date('Y-m-d', strtotime($data_original));
 </head>
 <body>
     <div id="area">
-        <form id="cadastro" autocomplete="off" action="cadastro.php" method="POST">//colocar no action:cadastrar_paciente.php
+        <form id="cadastro" autocomplete="off" action="cadastrar_paciente.php" method="POST">//colocar no action:cadastrar_paciente.php
             <fieldset>
                 <legend><b>Cadastro</b></legend>
 
