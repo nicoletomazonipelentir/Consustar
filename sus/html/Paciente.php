@@ -3,7 +3,7 @@
 class Cadastro{
     private string $nome_completo;
     private string $email;
-    private string $cpf;
+    private int $cpf;
     private string $data_nascimento;
     private int $telefone;
     private int $carteirinha_sus;
@@ -31,11 +31,11 @@ class Cadastro{
         $this->email = $email;
     }
 
-    public function getCpf(): string {
+    public function getCpf(): int {
         return $this->cpf;
     }
 
-    public function setCpf(string $cpf): void {
+    public function setCpf(int $cpf): void {
         $this->cpf = $cpf;
     }
 

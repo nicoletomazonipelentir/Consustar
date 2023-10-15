@@ -85,7 +85,7 @@ $data_formatada = date('Y-m-d', strtotime($data_original));
                 <div class="classecpf">
                     <label id="cpf" for="floatingInput">CPF</label>
                     <br>
-                    <input id="cpf" type="cpf" class="form-control" id="floatingInput" placeholder="Apenas os números"name="cpf">
+                    <input id="cpf" type="cpf" class="form-control" id="floatingInput" placeholder="111-111-111.11"name="cpf" maxlength="11" oninput="validar(this)">
                 </div>
 
                 <div class="classeEndereço">
@@ -118,7 +118,7 @@ $data_formatada = date('Y-m-d', strtotime($data_original));
                 <div class="classeTel">
                     <label id="tel" for="floatingInput">Telefone</label>
                     <br>
-                    <input id="tel" type="tel" class="form-control" id="floatingInput" placeholder="(XX)9XXXX-XXXX" name="telefone">
+                    <input id="tel" type="tel" class="form-control" id="floatingInput" placeholder="(XX)9XXXX-XXXX" name="telefone" maxlength="11">
                 </div>
 
                 <div class="classeEMAIL">
@@ -142,7 +142,7 @@ $data_formatada = date('Y-m-d', strtotime($data_original));
                 <div class="classecep">
                     <label id="cep" for="floatingInput">CEP</label>
                     <br>
-                    <input id="cep" type="cep" class="form-control" id="floatingInput" placeholder="XXXXX-XXX" name="cep">
+                    <input id="cep" type="cep" class="form-control" id="floatingInput" placeholder="XXXXX-XXX" name="cep" maxlength="8">
                 </div>
 
                 <div class="classeCidade">
@@ -163,5 +163,7 @@ $data_formatada = date('Y-m-d', strtotime($data_original));
 
             </fieldset>
         </form>
+
+        <script src="../js/index.js"></script>
 </body>
 </html>

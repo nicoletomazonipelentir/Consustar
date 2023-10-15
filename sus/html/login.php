@@ -22,7 +22,7 @@
                 <div class="classecpf">
                     <label id="cpf" for="floatingInput">CPF</label>
                     <br>
-                    <input id="cpfInput" type="text" class="form-control" id="floatingInput" placeholder="111.111.111-11" name="cpf">   
+                    <input id="cpfInput" type="text" class="form-control" id="floatingInput" placeholder="111.111.111-11" name="cpf" maxlength="11" oninput="validar(this)">   
                 </div>
                 <div class="classesenha">
                     <label id="senha" for="floatingPassword">Senha</label>
