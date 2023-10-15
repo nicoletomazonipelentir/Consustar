@@ -1,0 +1,50 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background-image : linear-gradient(to right,rgb(20,147,220), rgb(17,54,71));
+}
+
+.area{
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,50%);
+    background-color: rgba(0,0,0,0.3);
+    padding: 15px;
+    border-radius: 30px;
+    width: 20%;
+}
+
+fieldset{
+    border: 3px, solid black;
+}
+legend{
+    border: 2px, solid, black;
+    padding: 5px;
+    text-align: center;
+    background-color: black;
+    border-radius: 30px;
+    
+}
+
+.form-control{
+    background: none;
+    border: none; 
+    border-bottom: 2px solid white;
+    color: white;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+}
+
+.inputAnimacao{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    pointer-events: none;
+    transition: .35s;
+}
+
+.form-control:focus ~ .inputAnimacao, .form-control:valid ~ .inputAnimacao{ 
+    top: -20px;
+    font-size: 9px;   
+}
