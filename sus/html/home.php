@@ -22,13 +22,11 @@
     <div id="Tabela Horarios">
         <center><table width=600 border=”1″>
             <br><br>
-            <p><CENTER>Horários de Atendimento</P>
+            <p><CENTER>Horários Preenchidos <time datetime="<?php echo date('c'); ?>"><?php echo date('d/m/Y'); ?></time></p>
             <br><br>
             <tr>
-
-            </tr>
-            <tr><td>07:00</td><td><a>07:20</a></td><td><a>07:40
-            </a>
+<!-- colocar aqui as horas ocupadas e a data do dia -->
+</tr>
 
             <tr>
             <td><a>08:00</td></a></td><td><a>08:20</a></td></a></td><td><a>08:40</a></td>
