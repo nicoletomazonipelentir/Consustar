@@ -82,7 +82,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </select>
     <!-- <input type="submit" value="Escolhi a hora"> -->
 
-    <h3>Escolha seu dia:</h3>
+    <!-- <h3>Você quer marcar consulta para hoje ou amanhã?</h3>
+    <input type="submit" name="date" value="Hoje"></input>
+    <input type="submit" name="date" value="Amanha"></input> -->
     <?php
       // fazer uma condição pra não ser final de semana
       $date=date('N');
@@ -95,8 +97,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           $currentDate1 = date("d/m/Y", strtotime(" +1 day")); 
       }
 
-      // Generate a button with the current date as the label
-      //echo '<form action="your_action_script.php" method="post">';
+      
       echo '<input type="submit" name="date" value="' . $currentDate . '"></input>';
       echo '<input type="submit" name="date" value="' . $currentDate1 . '"></input>';
       echo '</form>';

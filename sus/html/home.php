@@ -25,7 +25,7 @@
             <p><CENTER>Horários Preenchidos <time datetime="<?php echo date('c'); ?>"><?php echo date('d/m/Y'); ?></time></p>
             <br><br>
             <tr>
-<!-- colocar aqui as horas ocupadas e a data do dia -->
+<!-- colocar aqui as horas ocupadas-->
 </tr>
 
             <tr>
