@@ -12,6 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "O campo 'hora' não foi enviado no formulário.";
     }
 }
+require('header.php');
 ?>
 
 <!DOCTYPE html>
