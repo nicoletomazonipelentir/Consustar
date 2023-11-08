@@ -3,8 +3,9 @@ session_start();
 if (isset($_SESSION["user"])) {
    header("Location: index.php");
 }
+require('header.php');
 ?>
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,7 +14,8 @@ if (isset($_SESSION["user"])) {
     <title>Registro conSUStar</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
-</head>
+</head> -->
+
 <body>
     <div class="container">
         <?php
@@ -34,20 +36,17 @@ if (isset($_SESSION["user"])) {
            $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
            $errors = array();
-           
            if (empty($fullName) OR empty($email) OR empty($password) OR empty($passwordRepeat) OR empty($cpf) OR empty($telefone) OR empty($numCarteira) OR empty($endereco) OR empty($numero) OR empty($cidade) OR empty($estado) OR empty($cep)) {
             array_push($errors,"Você deve preencher todos os campos.");
            }
-           if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            array_push($errors, "Email não é válido.");
+           if (!filter_var($email, FILTER_VALIDATE_EMAIL) || $password!==$passwordRepeat) {
+            array_push($errors, "Login inválido.");
            }
            if (strlen($password)<8) {
             array_push($errors,"A senha deve ter no mínimo 8 caracteres.");
            }
-           if ($password!==$passwordRepeat) {
-            array_push($errors,"A senha não é igual.");
-           }
            require_once "db.php";
+           //trocar o email pelo cpf
            $sql = "SELECT * FROM users WHERE email = '$email'";
            $result = mysqli_query($conn, $sql);
            $rowCount = mysqli_num_rows($result);
@@ -59,7 +58,8 @@ if (isset($_SESSION["user"])) {
                 echo "<div class='alert alert-danger'>$error</div>";
             }
            }else{
-            
+            //$fullName,$email,$password,$passwordRepeat,$cpf,$telefone,$numCarteira,$endereco,$numero,$cidade,$estado,$cep 
+            //eu acho q isso aqui cadastra o login, precisa fazer uma parte pra cadastrar o cadastro, com as variaveis de cima
             $sql = "INSERT INTO users (full_name, email, password) VALUES ( ?, ?, ? )";
             $stmt = mysqli_stmt_init($conn);
             $prepareStmt = mysqli_stmt_prepare($stmt,$sql);

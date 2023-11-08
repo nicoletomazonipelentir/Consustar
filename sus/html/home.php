@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,7 +8,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 
-</head>
+</head> -->
+
+<?php
+require('header.php');
+?>
 <!--BOTAR O HEADER E O FOOTER-->
 <!--CSS inteiro pra isso não ficar esse nojo resto de xorume de lixo radioativo q ta agr-->
 <body>
