@@ -15,7 +15,7 @@ require('header.php');
 ?>
 <!--BOTAR O HEADER E O FOOTER-->
 <!--CSS inteiro pra isso não ficar esse nojo resto de xorume de lixo radioativo q ta agr-->
-<body>
+<body id="bodyHome">
     
     <div class="container" id="cHome">
         <div class="row">
