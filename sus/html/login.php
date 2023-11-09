@@ -13,7 +13,7 @@ require('header.php');
            $email = $_POST["email"];
            $password = $_POST["password"];
             require_once "db.php";
-            $resultadoLogin = loginUser($conn, $email, $password);
+            $resultadoLogin = loginUser($email, $password);
         }
         ?>
       <form action="login.php" method="post">

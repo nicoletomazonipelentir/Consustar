@@ -84,15 +84,15 @@ function limparTabelaHorarios() {
     $conn->close();
 }
 
-function Cadastro($nome, $email, $senha) {
+function Cadastro($fullName,$email,$password,$passwordRepeat,$cpf,$telefone,$numCarteira,$endereco,$numero,$cidade,$estado,$cep,$bairo) {
     $conn = ConectaBD();
 
-    $nome = $conn->real_escape_string($nome);
-    $email = $conn->real_escape_string($email);
-    $senha = $conn->real_escape_string($senha);
+    // $nome = $conn->real_escape_string($nome);
+    // $email = $conn->real_escape_string($email);
+    // $senha = $conn->real_escape_string($senha);
 
-    $sql = "INSERT INTO usuarios (nome, email, senha) VALUES ('$nome', '$email', '$senha')";
-
+    $sql = "INSERT INTO users (fullName,email,password,cpf,telefone,numCarteira,endereco,numero,cidade,estado,cep,bairro) VALUES ('$fullName','$email','$password','$cpf','$telefone','$numCarteira','$endereco','$numero','$cidade','$estado','$cep','$bairro')";
+    
     if ($conn->query($sql) === TRUE) {
         echo "Cadastro realizado com sucesso!";
     } else {
