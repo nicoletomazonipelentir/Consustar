@@ -15,8 +15,9 @@ require('header.php');
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 </head> -->
-
+<script type="text/javascript" src="js/cep.js"> </script>
 <body>
+    
     <div class="container">
         <?php
         if (isset($_POST["submit"])) {
@@ -104,13 +105,13 @@ require('header.php');
                 <input type="text" class="form-control" name="numero" placeholder="Número:">
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" name="cidade" placeholder="Cidade:">
+                <input type="text" class="form-control" name="cidade" placeholder="Cidade:" id="txtCidade">
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" name="estado" placeholder="Estado:">
+                <input type="text" class="form-control" name="estado" placeholder="Estado:" id="txtEstado">
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" name="cep" placeholder="CEP:">
+                <input type="text" class="form-control" name="cep" placeholder="CEP:" id="txtCep">
             </div>
             <div class="form-btn">
                 <input type="submit" class="btn btn-primary" value="Register" name="submit">
@@ -120,5 +121,6 @@ require('header.php');
         <div><p>Já tem conta? <a href="login.php">Login</a></p></div>
       </div>
     </div>
+    
 </body>
 </html>

@@ -19,42 +19,15 @@ require('header.php');
 <html>
 
 <head>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-    }
-
-    table {
-      margin: 0 auto;
-      border-collapse: collapse;
-    }
-
-    th,
-    td {
-      width: 40px;
-      height: 40px;
-      border: 1px solid #ccc;
-      text-align: center;
-    }
-
-    th {
-      background-color: #f2f2f2;
-    }
-
-    .today {
-      background-color: #007BFF;
-      color: #fff;
-    }
-  </style>
+  <link rel="stylesheet" href="styleindex.css">
 </head>
 
-<body>
-  <h3>Aperte aqui e escolha o horário que deseja marcar sua consulta!</h3>
+<body id="bodyindex">
+  <h3 id="h3index">Escolha o horário de sua consulta</h3>
   <!-- fazer isso aqui puxar horarios do banco -->
-  <form method="post" action="index.php">
-  <label for="hora">Selecione uma opção:</label>
-    <select class="form-select" aria-label="Default select example">
+  <form method="post" action="index.php" id="formIndex">
+  <label for="hora" id="labelIndex#">Selecione uma opção:</label>
+    <select class="form-select" aria-label="Default select example" id="selectIndex">
       <option selected>Escolha seu horário</option>
       <option value="1">08:00</option>
       <option value="2">08:20</option>

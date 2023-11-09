@@ -7,10 +7,11 @@
     <title>conSUStar</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
+    
 </head>
 <body>
     <header class="titulo">
-        <h3>conSUStar</h3>
+        <img src="logoconsustar.png" alt="Logo da conSUStar" id="logo"/> 
     </header>
 </body>
 </html>

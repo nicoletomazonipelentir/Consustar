@@ -1,0 +1,23 @@
+.container {
+    max-width: 80%; 
+    margin:0 auto;
+    padding:50px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+body{
+    padding:50px;
+}
+
+.form-group{
+    margin-bottom:30px;
+}
+
+#horarios.col-6{
+    margin-left: 50px;
+}
+
+#areadetexto{
+    text-align: center;
+    margin-top: 70px;
+}
