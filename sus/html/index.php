@@ -155,10 +155,7 @@ require('header.php');
     generateCalendar(currentDate.getFullYear(), currentDate.getMonth() + 1);
   </script>
 
-<!-- linkar o botao sair com logout e ver se o cancelar fica aqui ou na proxima pagina, depois de clicar no botao da data, isso
-é cadastardo no banco e chama a pagina final -->
-  <button>Sair</button>
-  <button>Cancelar consulta</button>
+    <input type="button" value="Confirmar ">
 
 </body>
 

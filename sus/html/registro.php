@@ -4,6 +4,26 @@ if (isset($_SESSION["user"])) {
    header("Location: index.php");
 }
 require('header.php');
+
+
+require_once('db.php');
+
+// Receba os dados do formulário
+$fullName = $_POST["fullname"];
+$email = $_POST["email"];
+$password = $_POST["password"];
+$passwordRepeat = $_POST["repeat_password"];
+$cpf = $_POST["cpf"];
+$telefone = $_POST["telefone"];
+$numCarteira = $_POST["numCarteira"];
+$endereco = $_POST["endereco"];
+$numero = $_POST["numero"];
+$cidade = $_POST["cidade"];
+$estado = $_POST["estado"];
+$cep = $_POST["cep"];
+
+
+Cadastro($nome, $email, $senha);
 ?>
 <!-- <!DOCTYPE html>
 <html lang="en">
@@ -20,18 +40,18 @@ require('header.php');
     <div class="container">
         <?php
         if (isset($_POST["submit"])) {
-           $fullName = $_POST["fullname"];
-           $email = $_POST["email"];
-           $password = $_POST["password"];
-           $passwordRepeat = $_POST["repeat_password"];
-           $cpf = $_POST["cpf"];
-           $telefone = $_POST["telefone"];
-           $numCarteira = $_POST["numCarteira"];
-           $endereco = $_POST["endereco"];
-           $numero = $_POST["numero"];
-           $cidade = $_POST["cidade"];
-           $estado = $_POST["estado"];
-           $cep = $_POST["cep"];
+        //    $fullName = $_POST["fullname"];
+        //    $email = $_POST["email"];
+        //    $password = $_POST["password"];
+        //    $passwordRepeat = $_POST["repeat_password"];
+        //    $cpf = $_POST["cpf"];
+        //    $telefone = $_POST["telefone"];
+        //    $numCarteira = $_POST["numCarteira"];
+        //    $endereco = $_POST["endereco"];
+        //    $numero = $_POST["numero"];
+        //    $cidade = $_POST["cidade"];
+        //    $estado = $_POST["estado"];
+        //    $cep = $_POST["cep"];
            
            $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
