@@ -4,18 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Inicial</title>
-    <link rel="stylesheet" type="text/css" href="/css/styleInicial.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    
+
 </head> -->
 
 <?php
 require('header.php');
 ?>
 <!--BOTAR O HEADER E O FOOTER-->
-<!--N faço ideia do pq o botao n funfa-->
-<!--Aq so vai faltar botar os horario em vermelho ou ent eles sumirem quando tiverem ocupados, mas ai precisa do bank -->
+<!--CSS inteiro pra isso não ficar esse nojo resto de xorume de lixo radioativo q ta agr-->
 <body>
     
     <div class="container" id="cHome">
