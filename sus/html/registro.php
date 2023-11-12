@@ -17,8 +17,8 @@ require('header.php');
             // Receba os dados do formulário
             $fullName = $_POST["fullname"];
             $email = $_POST["email"];
-            $password = $_POST["password"];
-            $passwordRepeat = $_POST["repeat_password"];
+            $senha = $_POST["password"];
+            $senhaRepeat = $_POST["repeat_password"];
             $cpf = $_POST["cpf"];
             $telefone = $_POST["telefone"];
             $numCarteira = $_POST["numCarteira"];
@@ -30,33 +30,35 @@ require('header.php');
             $cep = $_POST["cep"];
 
 
-            $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+           $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
-            $errors = array();
-            if (empty($fullName) or empty($email) or empty($password) or empty($passwordRepeat) or empty($cpf) or empty($telefone) or empty($numCarteira) or empty($endereco) or empty($numero) or empty($cidade) or empty($estado) or empty($cep) or empty($bairro)) {
-                array_push($errors, "Você deve preencher todos os campos.");
+           $errors = array();
+           if (empty($fullName) OR empty($email) OR empty($senha) OR empty($senhaRepeat) OR empty($cpf) OR empty($telefone) OR empty($numCarteira) OR empty($endereco) OR empty($numero) OR empty($cidade) OR empty($estado) OR empty($cep) OR empty($bairro)) {
+            array_push($errors,"Você deve preencher todos os campos.");
+           }
+           if (!filter_var($email, FILTER_VALIDATE_EMAIL) || $senha!==$senhaRepeat) {
+            array_push($errors, "Login inválido.");
+           }
+           if (strlen($senha)<8) {
+            array_push($errors,"A senha deve ter no mínimo 8 caracteres.");
+           }
+           //trocar o email pelo cpf
+           $sql = "SELECT * FROM users WHERE cpf = '$cpf'";
+           $conn=ConectaBD();
+           $result = mysqli_query($conn, $sql);
+           $rowCount = mysqli_num_rows($result);
+           if ($rowCount>0) {
+            array_push($errors,"cpf já existe!");
+           }
+           if (count($errors)>0) {
+            foreach ($errors as  $error) {
+                echo "<div class='alert alert-danger'>$error</div>";
             }
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL) || $password !== $passwordRepeat) {
-                array_push($errors, "Login inválido.");
-            }
-            if (strlen($password) < 8) {
-                array_push($errors, "A senha deve ter no mínimo 8 caracteres.");
-            }
-            //trocar o email pelo cpf
-            $sql = "SELECT * FROM users WHERE cpf = '$cpf'";
-            $conn = ConectaBD();
-            $result = mysqli_query($conn, $sql);
-            $rowCount = mysqli_num_rows($result);
-            if ($rowCount > 0) {
-                array_push($errors, "cpf já existe!");
-            }
-            if (count($errors) > 0) {
-                foreach ($errors as  $error) {
-                    echo "<div class='alert alert-danger'>$error</div>";
-                }
-            } else {
-                Cadastro($fullName, $email, $password, $passwordRepeat, $cpf, $telefone, $numCarteira, $endereco, $numero, $cidade, $estado, $cep, $bairro);
-            }
+           }else{
+           Cadastro($fullName,$email,$senha,$senhaRepeat,$cpf,$telefone,$numCarteira,$endereco,$numero,$cidade,$estado,$cep,$bairro);
+           }
+          
+
         }
         ?>
         <form action="registro.php" method="post" class="row">
