@@ -16,8 +16,8 @@ require('header.php');
             // Receba os dados do formulário
             $fullName = $_POST["fullname"];
             $email = $_POST["email"];
-            $password = $_POST["password"];
-            $passwordRepeat = $_POST["repeat_password"];
+            $senha = $_POST["password"];
+            $senhaRepeat = $_POST["repeat_password"];
             $cpf = $_POST["cpf"];
             $telefone = $_POST["telefone"];
             $numCarteira = $_POST["numCarteira"];
@@ -29,16 +29,16 @@ require('header.php');
             $cep = $_POST["cep"];
 
 
-           $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+           $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
 
            $errors = array();
-           if (empty($fullName) OR empty($email) OR empty($password) OR empty($passwordRepeat) OR empty($cpf) OR empty($telefone) OR empty($numCarteira) OR empty($endereco) OR empty($numero) OR empty($cidade) OR empty($estado) OR empty($cep) OR empty($bairro)) {
+           if (empty($fullName) OR empty($email) OR empty($senha) OR empty($senhaRepeat) OR empty($cpf) OR empty($telefone) OR empty($numCarteira) OR empty($endereco) OR empty($numero) OR empty($cidade) OR empty($estado) OR empty($cep) OR empty($bairro)) {
             array_push($errors,"Você deve preencher todos os campos.");
            }
-           if (!filter_var($email, FILTER_VALIDATE_EMAIL) || $password!==$passwordRepeat) {
+           if (!filter_var($email, FILTER_VALIDATE_EMAIL) || $senha!==$senhaRepeat) {
             array_push($errors, "Login inválido.");
            }
-           if (strlen($password)<8) {
+           if (strlen($senha)<8) {
             array_push($errors,"A senha deve ter no mínimo 8 caracteres.");
            }
            //trocar o email pelo cpf
@@ -54,7 +54,7 @@ require('header.php');
                 echo "<div class='alert alert-danger'>$error</div>";
             }
            }else{
-           Cadastro($fullName,$email,$password,$passwordRepeat,$cpf,$telefone,$numCarteira,$endereco,$numero,$cidade,$estado,$cep,$bairro);
+           Cadastro($fullName,$email,$senha,$senhaRepeat,$cpf,$telefone,$numCarteira,$endereco,$numero,$cidade,$estado,$cep,$bairro);
            }
           
 

@@ -14,14 +14,14 @@ function ConectaBD() {
     return $conn;
 }
 
-function loginUser($conn, $email, $password) {
+function loginUser($email, $senha) {
     $conn = ConectaBD();
     $sql = "SELECT * FROM users WHERE email = '$email'";
     $result = mysqli_query($conn, $sql);
     $user = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
     if ($user) {
-        if (password_verify($password, $user["password"])) {
+        if (password_verify($senha, $user["password"])) {
             session_start();
             $_SESSION["user"] = "yes";
             header("Location: index.php");
@@ -84,14 +84,14 @@ function limparTabelaHorarios() {
     $conn->close();
 }
 
-function Cadastro($fullName,$email,$password,$passwordRepeat,$cpf,$telefone,$numCarteira,$endereco,$numero,$cidade,$estado,$cep,$bairo) {
+function Cadastro($fullname,$email,$senha,$senhaRepeat,$telefone,$cpf,$numCarteira,$endereco,$numero,$cidade,$estado,$cep,$bairro) {
     $conn = ConectaBD();
 
     // $nome = $conn->real_escape_string($nome);
     // $email = $conn->real_escape_string($email);
     // $senha = $conn->real_escape_string($senha);
 
-    $sql = "INSERT INTO users (fullName,email,password,cpf,telefone,numCarteira,endereco,numero,cidade,estado,cep,bairro) VALUES ('$fullName','$email','$password','$cpf','$telefone','$numCarteira','$endereco','$numero','$cidade','$estado','$cep','$bairro')";
+    $sql = "INSERT INTO users (full_name,email,senha,telefone,cpf,numCarteira,endereco,numero,cidade,estado,cep,bairro) VALUES ('$fullname','$email','$senha','$telefone','$cpf','$numCarteira','$endereco','$numero','$cidade','$estado','$cep','$bairro')";
     
     if ($conn->query($sql) === TRUE) {
         echo "Cadastro realizado com sucesso!";
