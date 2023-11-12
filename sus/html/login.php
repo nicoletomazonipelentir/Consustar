@@ -7,7 +7,7 @@ if (isset($_SESSION["user"])) {
 require('header.php');
 ?>
 <body>
-    <div class="container">
+    <div class="container" id="c.Log">
         <?php
         if (isset($_POST["login"])) {
            $email = $_POST["email"];

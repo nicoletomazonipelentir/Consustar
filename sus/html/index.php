@@ -23,7 +23,7 @@ require('header.php');
 </head>
 
 <body id="bodyindex">
-  <div class="container">
+  <div class="container" id="c.Index">
     <h3 id="h3index">Escolha o horário de sua consulta</h3>
     <!-- fazer isso aqui puxar horarios do banco -->
     <form method="post" action="index.php" id="formIndex">

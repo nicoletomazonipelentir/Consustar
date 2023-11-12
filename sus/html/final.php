@@ -2,6 +2,7 @@
 require('header.php');
 ?>
 <body>
+  <div class="container" id="c.F">
     <h1>Sua consulta foi agendada!</h1>
 
     <h2>Data: //aqui chamar do banco de dados</h2>
@@ -11,5 +12,7 @@ require('header.php');
 é cadastardo no banco e chama a pagina final -->
   <button><a href="logout.php">Sair</button>
   <input type="button" value="Cancelar Consulta">
+  </div>
+    
 </body>
 </html>

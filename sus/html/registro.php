@@ -1,14 +1,15 @@
 <?php
 session_start();
 if (isset($_SESSION["user"])) {
-   header("Location: index.php");
+    header("Location: index.php");
 }
 require('header.php');
 ?>
 <script type="text/javascript" src="js/cep.js"> </script>
+
 <body id="bodyRegistro">
-    
-    <div class="container">
+
+    <div class="container" id="c.Reg">
         <?php
         if (isset($_POST["submit"])) {
             require_once('db.php');
@@ -22,42 +23,40 @@ require('header.php');
             $telefone = $_POST["telefone"];
             $numCarteira = $_POST["numCarteira"];
             $endereco = $_POST["endereco"];
-            $bairro=$_POST['bairro'];
+            $bairro = $_POST['bairro'];
             $numero = $_POST["numero"];
             $cidade = $_POST["cidade"];
             $estado = $_POST["estado"];
             $cep = $_POST["cep"];
 
 
-           $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+            $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
-           $errors = array();
-           if (empty($fullName) OR empty($email) OR empty($password) OR empty($passwordRepeat) OR empty($cpf) OR empty($telefone) OR empty($numCarteira) OR empty($endereco) OR empty($numero) OR empty($cidade) OR empty($estado) OR empty($cep) OR empty($bairro)) {
-            array_push($errors,"Você deve preencher todos os campos.");
-           }
-           if (!filter_var($email, FILTER_VALIDATE_EMAIL) || $password!==$passwordRepeat) {
-            array_push($errors, "Login inválido.");
-           }
-           if (strlen($password)<8) {
-            array_push($errors,"A senha deve ter no mínimo 8 caracteres.");
-           }
-           //trocar o email pelo cpf
-           $sql = "SELECT * FROM users WHERE cpf = '$cpf'";
-           $conn=ConectaBD();
-           $result = mysqli_query($conn, $sql);
-           $rowCount = mysqli_num_rows($result);
-           if ($rowCount>0) {
-            array_push($errors,"cpf já existe!");
-           }
-           if (count($errors)>0) {
-            foreach ($errors as  $error) {
-                echo "<div class='alert alert-danger'>$error</div>";
+            $errors = array();
+            if (empty($fullName) or empty($email) or empty($password) or empty($passwordRepeat) or empty($cpf) or empty($telefone) or empty($numCarteira) or empty($endereco) or empty($numero) or empty($cidade) or empty($estado) or empty($cep) or empty($bairro)) {
+                array_push($errors, "Você deve preencher todos os campos.");
             }
-           }else{
-           Cadastro($fullName,$email,$password,$passwordRepeat,$cpf,$telefone,$numCarteira,$endereco,$numero,$cidade,$estado,$cep,$bairro);
-           }
-          
-
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL) || $password !== $passwordRepeat) {
+                array_push($errors, "Login inválido.");
+            }
+            if (strlen($password) < 8) {
+                array_push($errors, "A senha deve ter no mínimo 8 caracteres.");
+            }
+            //trocar o email pelo cpf
+            $sql = "SELECT * FROM users WHERE cpf = '$cpf'";
+            $conn = ConectaBD();
+            $result = mysqli_query($conn, $sql);
+            $rowCount = mysqli_num_rows($result);
+            if ($rowCount > 0) {
+                array_push($errors, "cpf já existe!");
+            }
+            if (count($errors) > 0) {
+                foreach ($errors as  $error) {
+                    echo "<div class='alert alert-danger'>$error</div>";
+                }
+            } else {
+                Cadastro($fullName, $email, $password, $passwordRepeat, $cpf, $telefone, $numCarteira, $endereco, $numero, $cidade, $estado, $cep, $bairro);
+            }
         }
         ?>
         <form action="registro.php" method="post" class="row">
@@ -105,16 +104,19 @@ require('header.php');
                 </div>
                 <div class="form-btn">
                     <input type="submit" class="btn btn-primary" value="Cadastrar" name="submit">
-                    <div><p>Já tem conta? <button type="button"><a href="login.php">Login</a></button></p></div>
+                    <div>
+                        <p>Já tem conta? <button type="button"><a href="login.php">Login</a></button></p>
+                    </div>
                 </div>
             </div>
-            
-            
+
+
         </form>
         <div>
-        
-      </div>
+
+        </div>
     </div>
-    
+
 </body>
+
 </html>
