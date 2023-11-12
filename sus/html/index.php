@@ -128,7 +128,8 @@ require('header.php');
     generateCalendar(currentDate.getFullYear(), currentDate.getMonth() + 1);
   </script>
 
-    <input type="button" value="Confirmar ">
+    <button> <a href="final.php">Confirmar</button>
+    
 
 </body>
 
