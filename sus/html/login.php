@@ -1,9 +1,4 @@
 <?php
-
-session_start();
-if (isset($_SESSION["user"])) {
-   header("Location: index.php");
-}
 require('header.php');
 ?>
 <body>
@@ -29,5 +24,11 @@ require('header.php');
       </form>
      <div><p>Não tem conta? <a href="registro.php">Registro</a></p></div>
     </div>
+
+    <?php
+        if ($resultadoLogin == true) {
+            header("Location: index.php");
+        }
+    ?>
 </body>
 </html>

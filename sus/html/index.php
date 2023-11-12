@@ -1,4 +1,10 @@
 <?php
+
+session_start();
+if (isset($_SESSION["user"])) {
+   header("Location: login.php");
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Verifica se o campo "selecao" foi enviado no formulário
     if (isset($_POST["selecao"])) {

@@ -21,7 +21,7 @@ function loginUser($email, $senha) {
     $user = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
     if ($user) {
-        if (password_verify($senha, $user["password"])) {
+        if (password_verify($senha, $user["senha"])) {
             session_start();
             $_SESSION["user"] = "yes";
             header("Location: index.php");
