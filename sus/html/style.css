@@ -20,7 +20,7 @@ body::after {
 #logo{
     max-width: 200px;
     margin-left: 45%;
-    margin-top: -35px;
+    margin-top: 0px;
     display: inline-block;
     
 }
@@ -33,11 +33,12 @@ body::after {
     opacity: 18%;
 }
 .container{
-    max-width: 600px;
+    max-width: 220px;
     margin: 0 auto;
     padding: 50px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
+
 .container,#c.Home{
     max-width: 1450px;
     margin:0 auto;

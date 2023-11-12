@@ -6,7 +6,7 @@ if (isset($_SESSION["user"])) {
 require('header.php');
 ?>
 <script type="text/javascript" src="js/cep.js"> </script>
-<body>
+<body id="bodyRegistro">
     
     <div class="container">
         <?php
