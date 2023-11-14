@@ -34,31 +34,23 @@ function loginUser($email, $senha) {
     }
 }
 
-function criarTabelaHorarios() {
+function criarTabelaHorarios($dataAtual) {
     $conn = ConectaBD();
-    // Criação da tabela
-    $sqlCreateTable = "CREATE TABLE IF NOT EXISTS Horarios (
-        id DATE PRIMARY KEY,
-        horario VARCHAR(5)
-    )";
 
-    if ($conn->query($sqlCreateTable) === TRUE) {
-        echo "Tabela Horarios criada com sucesso.<br>";
-    } else {
-        echo "Erro na criação da tabela: " . $conn->error . "<br>";
-    }
+    $dataObj = DateTime::createFromFormat('d/m/Y', $dataAtual);
+    $dataFormatada = $dataObj->format('Y-m-d');
 
-    $dataAtual = date("Y-m-d");
     $horarios = array('08:00', '08:20', '08:40', '09:00', '09:20', '09:40', '10:00', '10:20', '10:40', '11:00', '11:20', '11:40', '13:00', '13:20', '13:40', '14:00', '14:20', '14:40', '15:00', '15:20', '15:40', '16:00', '16:20', '16:40');
 
     foreach ($horarios as $horario) {
-        $sqlInsert = "INSERT INTO Horarios (id, horario) VALUES ('$dataAtual', '$horario')";
+        $sqlSelect = "SELECT * FROM Horarios WHERE id = '$dataFormatada' AND horario = '$horario'";
+        $result = $conn->query($sqlSelect);
 
-        if ($conn->query($sqlInsert) === TRUE) {
-            echo "Horário '$horario' inserido com sucesso.<br>";
-        } else {
-            echo "Erro na inserção do horário '$horario': " . $conn->error . "<br>";
-        }
+        if ($result->num_rows == 0) {
+            $sqlInsert = "INSERT INTO Horarios (id, horario) VALUES ('$dataFormatada', '$horario')";
+            // Executa a instrução de inserção
+            $conn->query($sqlInsert);
+        } 
     }
 
     // Fecha a conexão
@@ -74,11 +66,11 @@ function limparTabelaHorarios() {
     // Limpa os registros mais antigos
     $sqlDelete = "DELETE FROM Horarios WHERE id < '$dataLimite'";
 
-    if ($conn->query($sqlDelete) === TRUE) {
-        echo "Registros antigos removidos com sucesso.<br>";
-    } else {
-        echo "Erro na remoção de registros antigos: " . $conn->error . "<br>";
-    }
+    // if ($conn->query($sqlDelete) === TRUE) {
+    //     echo "Registros antigos removidos com sucesso.<br>";
+    // } else {
+    //     echo "Erro na remoção de registros antigos: " . $conn->error . "<br>";
+    // }
 
     // Fecha a conexão
     $conn->close();
@@ -97,4 +89,39 @@ function Cadastro($fullname,$email,$senha,$senhaRepeat,$telefone,$cpf,$numCartei
 
     $conn->close();
 }
+
+function horariosVagos($dataAtual) {
+    $conn = ConectaBD();
+    $dataObj = DateTime::createFromFormat('d/m/Y', $dataAtual);
+    $dataFormatada = $dataObj->format('Y-m-d');
+
+    // Consulta SQL usando prepared statement para evitar injeção SQL
+    $sql = "SELECT id, horario FROM Horarios WHERE id = '".$dataFormatada."'";
+    $stmt = $conn->prepare($sql);
+    //$stmt->bind_param("s", $dataFormatada);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    // Verificar se há resultados
+    if ($result->num_rows > 0) {
+        // Iniciar o elemento select
+        echo "<select>";
+
+        // Iterar sobre os resultados e gerar as opções
+        while ($row = $result->fetch_assoc()) {
+            echo "<option value='" . $row["id"] . "'>" . $row["horario"] . "</option>";
+        }
+
+        // Fechar o elemento select
+        echo "</select>";
+    } else {
+        echo "Nenhum resultado encontrado.";
+    }
+
+    // Fechar o statement e a conexão
+    $stmt->close();
+    $conn->close();
+}
+
+
 ?>
