@@ -107,7 +107,7 @@ require('header.php');
                 <div class="form-btn">
                     <input type="submit" class="btn btn-primary" value="Cadastrar" name="submit">
                     <div>
-                        <p>Já tem conta? <button type="button"><a href="login.php">Login</a></button></p>
+                        <p>Já tem conta? <a href="login.php">Login</a></p>
                     </div>
                 </div>
             </div>

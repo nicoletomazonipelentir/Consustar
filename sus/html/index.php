@@ -17,14 +17,11 @@ include('db.php');
 
 <!DOCTYPE html>
 <html>
-  <head>
-    <link rel="stylesheet" href="styleindex.css">
-  </head>
-
+ 
   <body id="bodyindex">
-    <div class="container row">
+    <div class="container row" id="c.Index">
       <!-- data e horario, marcar consulta -->
-      <div class="col-4">
+      <div class="col-4" id="col4">
         <form method="post" action="index.php" id="formIndex">
           <h4>Escolha o dia da sua consulta:</h4>
           <?php

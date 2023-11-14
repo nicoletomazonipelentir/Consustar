@@ -6,6 +6,7 @@
     background-repeat: no-repeat;
     
 }
+
 body::after {
     content: "";
     position: fixed;
@@ -24,6 +25,7 @@ body::after {
     display: inline-block;
     
 }
+
 #background{
     position: absolute;
     width: 100%;
@@ -32,6 +34,7 @@ body::after {
     top: 8px;
     opacity: 18%;
 }
+
 .container{
     max-width: 220px;
     margin: 0 auto;
@@ -60,12 +63,13 @@ body::after {
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
-.container,#c.Index{
-    max-width: 720px;
+.container.row,#c.Index{
+    max-width: 900px;
     margin:0 auto;
     padding:50px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
+
 .container,#c.F{
     max-width: 720px;
     margin:30 auto;
@@ -79,10 +83,10 @@ body::after {
 }
 
 #horarios{
-    margin-left: 50px;
-    
+    margin-left: 50px;    
 }
 
+/*Home*/
 #areadetexto.col{
     text-align: center;
     margin-top: 200px;
@@ -100,6 +104,10 @@ body::after {
     padding: 20px;
     border-radius: 10px;
     margin-bottom: 20px;
+}
+
+#h3Texto{
+    color:#005BAB
 }
 
 #botaoLogin,
@@ -129,7 +137,7 @@ th, td {
 }
 
 th {
-    background-color: #4CAF50;
+    background-color: #005BAB;
     color: white;
 }
 
@@ -139,7 +147,7 @@ td {
 
 #textoHorarios {
     font-size: 18px;
-    color: #333;
+    color: #005BAB;
 }
 
 
@@ -149,8 +157,76 @@ td {
     font-weight: bold;
 }
 
-#horarios a:hover {
-    color: #4CAF50;
+/*INDEX*/
+
+#bodyindex {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
 }
 
 
+#col-4 {
+  float: left;
+  display: none;
+  width: 25%;
+  padding: 10px;
+}
+
+input[type="submit"] {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #005BAB;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#formIndex {
+  display: flex;
+  flex-direction: column;
+}
+
+h4, #h4index {
+  margin-bottom: 10px;
+  color : #005BAB;
+  margin-top: 40px;
+}
+
+label {
+  margin-bottom: 5px;
+  float: left;
+}
+
+
+.col-8 {
+  float: right;
+  width: 65%;
+  padding: 10px;
+  margin-left: 10px;
+  display: inline;
+}
+
+#month-year {
+  margin-bottom: 10px;
+  font-size: 1.5em;
+}
+
+#calendar {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#calendar td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.today {
+  background-color: #005BAB;
+  color: white;
+}
