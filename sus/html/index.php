@@ -26,7 +26,7 @@ include('db.php');
       <!-- data e horario, marcar consulta -->
       <div class="col-4">
         <form method="post" action="index.php" id="formIndex">
-          <h3>Escolha o dia da sua consulta:</h3>
+          <h4>Escolha o dia da sua consulta:</h4>
           <?php
             $date = date('N');
             if ($date == 6) {
