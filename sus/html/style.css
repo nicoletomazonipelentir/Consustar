@@ -91,6 +91,7 @@ body::after {
     text-align: center;
     margin-top: 200px;
     padding: 50px;
+    margin-left: 20px;
 }
 
 * {
@@ -110,14 +111,17 @@ body::after {
     color:#005BAB
 }
 
+
 #botaoLogin,
 #botaoCadastro {
-    display:block;
     width: 30%;
     margin-top: 10px;
     text-align: center;
-    margin-left: 220px;
+    margin-left: 200px;
+    display: block;  
 }
+
+
 
 #horarios {
     background-color: #fff;

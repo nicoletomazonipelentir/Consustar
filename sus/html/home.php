@@ -7,8 +7,16 @@ require('header.php');
         <div class="row">
             <div class="col" id="areadetexto">
                 <h3 id="h3Texto">Uma solução para o agendamento de consultas online direcionado para o Sistema Único de Saúde (SUS)</h3>
-                <a id="botaoLogin" href="login.php" class="btn btn-primary enabled" role="button" aria-disabled="true">Login</a>
-                <a id="botaoCadastro" href="registro.php" class="btn btn-primary enabled"  role="button" aria-disabled="true">Cadastre-se</a>
+                <div class="row" id="botoes">
+                    <div class="col">
+                        <a id="botaoLogin" href="login.php" class="btn btn-primary enabled" role="button" aria-disabled="true">Login</a>    
+                    </div>
+                    <div class="col" id="aAAA">
+                        <a id="botaoCadastro" href="registro.php" class="btn btn-primary enabled"  role="button" aria-disabled="true">Cadastre-se</a>
+                    </div>                    
+                    
+                </div>
+                
             </div>
             
             <div class="col-6" id="horarios">
