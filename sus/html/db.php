@@ -119,11 +119,11 @@ function horariosVagos($dataAtual) {
     $conn->close();
 }
 
-function pacientes($data, $horario,$nome){
+function pacientes($data, $horario,$email){
     $conn = ConectaBD();
     
     // Consultar dados na tabela "users"
-    $sql_users = "SELECT full_name, cpf, numCarteira FROM users WHERE full_name='".$nome."'";
+    $sql_users = "SELECT full_name, cpf, numCarteira FROM users WHERE email='".$email."'";
     $result_users = $conn->query($sql_users);
 
     if ($result_users->num_rows > 0) {
@@ -149,4 +149,38 @@ function pacientes($data, $horario,$nome){
     // Fechar conexão com o banco de dados
     $conn->close();
 }
+
+function tabelaOcupados(){
+    $conn = ConectaBD();
+    // Consulta SQL para recuperar os dados
+    $sql = "SELECT id, horario FROM horarios WHERE id='".date("Y-m-d")."'";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        $numColunas = 3;
+        $colunaAtual = 0;
+
+        while ($row = $result->fetch_assoc()) {
+            if ($colunaAtual == 0) {
+                echo "<tr>";
+            }
+            echo "<td>" . $row["horario"] . "</td>";
+
+            $colunaAtual++;
+
+            if ($colunaAtual == $numColunas) {
+                echo "</tr>";
+                $colunaAtual = 0;
+            }
+        }
+        if ($colunaAtual != 0) {
+            echo "</tr>";
+        }
+
+    } else {
+        echo "0 resultados encontrados";
+    }
+    $conn->close();
+}
+
 ?>

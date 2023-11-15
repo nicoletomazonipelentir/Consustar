@@ -3,14 +3,16 @@
 session_start();
 if (isset($_SESSION["user"])) {
    header("Location: login.php");
+   print_r($_SESSION);
+    $email = $_SESSION['email'];
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Verifica se o campo "selecao" foi enviado no formulário
     if (isset($_POST["selecao"])) {
         $hora = $_POST["hora"];
         $data=$_POST["criar_tabela"];
-        $nome=$_POST['full_name'];
-        pacientes($data, $hora,$nome);
+        $email=$_SESSION['email'];
+        pacientes($data, $hora,$email);
     }
 }
 require('header.php');
@@ -41,7 +43,6 @@ include('db.php');
             if (isset($_POST['criar_tabela'])) {
                 $data = $_POST['criar_tabela'];
                 criarTabelaHorarios($data);
-                limparTabelaHorarios();
           ?>
           <h4 id="h4index">Escolha o horário de sua consulta</h4>
           <label for="hora" id="labelIndex#">Selecione uma opção:</label>
@@ -52,8 +53,7 @@ include('db.php');
               limparTabelaHorarios();
             }
           ?> 
-          <!-- <button type="submit"><a href="final.php"> Confirmar</a></button> -->
-          <a href="final.php"><input type="submit" class="btn btn-primary" value="Confirmar" name="submit"></a>
+          <button type="submit" class="btn btn-primary"><a href="final.php" style="color: white;">Confirmar</a></button>
           <?php } ?>
         </form>
       </div>

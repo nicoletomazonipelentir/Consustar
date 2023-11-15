@@ -6,9 +6,14 @@ require('header.php');
         <?php
         if (isset($_POST["login"])) {
            $email = $_POST["email"];
+           //$_SESSION['email'] = $email;
            $password = $_POST["password"];
             require_once "db.php";
             $resultadoLogin = loginUser($email, $password);
+
+            if ($resultadoLogin == true) {
+                header("Location: index.php");
+            }
         }
         ?>
       <form action="login.php" method="post">
@@ -24,11 +29,5 @@ require('header.php');
       </form>
      <div><p>Não tem conta? <a href="registro.php">Registro</a></p></div>
     </div>
-
-    <?php
-        if ($resultadoLogin == true) {
-            header("Location: index.php");
-        }
-    ?>
 </body>
 </html>
