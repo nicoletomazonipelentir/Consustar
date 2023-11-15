@@ -9,6 +9,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["selecao"])) {
         $hora = $_POST["hora"];
         $data=$_POST["criar_tabela"];
+        $nome=$_POST['full_name'];
+        pacientes($data, $hora,$nome);
     }
 }
 require('header.php');
@@ -47,9 +49,11 @@ include('db.php');
             if (isset($_POST['criar_tabela'])) {
               $dataSelecionada = $_POST['criar_tabela'];
               horariosVagos($dataSelecionada);
+              limparTabelaHorarios();
             }
           ?> 
-          <button type="submit"><a href="final.php"> Confirmar</a></button>
+          <!-- <button type="submit"><a href="final.php"> Confirmar</a></button> -->
+          <a href="final.php"><input type="submit" class="btn btn-primary" value="Confirmar" name="submit"></a>
           <?php } ?>
         </form>
       </div>

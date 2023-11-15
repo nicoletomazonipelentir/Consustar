@@ -58,28 +58,24 @@ function criarTabelaHorarios($dataAtual) {
 }
 
 function limparTabelaHorarios() {
+    // Estabelece a conexão com o banco de dados
     $conn = ConectaBD();
     
     // Obtém a data atual menos dois dias
-    $dataLimite = date("Y-m-d", strtotime("-2 days"));
+    $dataLimite = date("Y-m-d");
 
-    // Limpa os registros mais antigos
+    // Cria a consulta SQL para deletar os registros mais antigos
     $sqlDelete = "DELETE FROM Horarios WHERE id < '$dataLimite'";
 
-    // if ($conn->query($sqlDelete) === TRUE) {
-    //     echo "Registros antigos removidos com sucesso.<br>";
-    // } else {
-    //     echo "Erro na remoção de registros antigos: " . $conn->error . "<br>";
-    // }
-
-    // Fecha a conexão
+    // Fecha a conexão com o banco de dados
     $conn->close();
 }
 
 function Cadastro($fullname,$email,$senha,$senhaRepeat,$telefone,$cpf,$numCarteira,$endereco,$numero,$cidade,$estado,$cep,$bairro) {
     $conn = ConectaBD();
 
-    $sql = "INSERT INTO users (full_name,email,senha,telefone,cpf,numCarteira,endereco,numero,cidade,estado,cep,bairro) VALUES ('$fullname','$email','$senha','$telefone','$cpf','$numCarteira','$endereco','$numero','$cidade','$estado','$cep','$bairro')";
+    $sql = "INSERT INTO users (full_name,email,senha,cpf,telefone,numCarteira,endereco,numero,cidade,estado,cep,bairro) 
+    VALUES ('$fullname','$email','$senha','$cpf','$telefone','$numCarteira','$endereco','$numero','$cidade','$estado','$cep','$bairro')";
     
     if ($conn->query($sql) === TRUE) {
         echo "Cadastro realizado com sucesso!";
@@ -123,5 +119,34 @@ function horariosVagos($dataAtual) {
     $conn->close();
 }
 
+function pacientes($data, $horario,$nome){
+    $conn = ConectaBD();
+    
+    // Consultar dados na tabela "users"
+    $sql_users = "SELECT full_name, cpf, numCarteira FROM users WHERE full_name='".$nome."'";
+    $result_users = $conn->query($sql_users);
 
+    if ($result_users->num_rows > 0) {
+        // Extraindo os dados da tabela "users"
+        $row = $result_users->fetch_assoc();
+        $full_name = $row['full_name'];
+        $cpf = $row['cpf'];
+        $num_carteira = $row['numCarteira'];
+
+        // Inserir dados na tabela "paciente"
+        $sql_paciente = "INSERT INTO paciente (full_name, horario, dia, cpf, num_carteira) 
+        VALUES ('$full_name', '$horario', '$data', '$cpf', '$num_carteira')";
+
+        if ($conn->query($sql_paciente) === TRUE) {
+            echo "Dados inseridos com sucesso!";
+        } else {
+            echo "Erro ao inserir dados na tabela paciente: " . $conn->error;
+        }
+    } else {
+        echo "Nenhum dado encontrado na tabela users para o ID fornecido.";
+    }
+
+    // Fechar conexão com o banco de dados
+    $conn->close();
+}
 ?>
