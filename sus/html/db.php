@@ -16,7 +16,7 @@ function ConectaBD() {
 
 function loginUser($email, $senha) {
     $conn = ConectaBD();
-    $sql = "SELECT * FROM users WHERE email = '$email'";
+    $sql = "SELECT * FROM users WHERE email = '".$email."'";
     $result = mysqli_query($conn, $sql);
     $user = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
@@ -74,11 +74,12 @@ function limparTabelaHorarios() {
 function Cadastro($fullname,$email,$senha,$senhaRepeat,$telefone,$cpf,$numCarteira,$endereco,$numero,$cidade,$estado,$cep,$bairro) {
     $conn = ConectaBD();
 
-    $sql = "INSERT INTO users (full_name,email,senha,cpf,telefone,numCarteira,endereco,numero,cidade,estado,cep,bairro) 
-    VALUES ('$fullname','$email','$senha','$cpf','$telefone','$numCarteira','$endereco','$numero','$cidade','$estado','$cep','$bairro')";
+    $sql = "INSERT INTO users (full_name,email,senha,telefone,cpf,numCarteira,endereco,numero,cidade,estado,cep,bairro) 
+    VALUES ('$fullname','$email','$senha','$telefone','$cpf','$numCarteira','$endereco','$numero','$cidade','$estado','$cep','$bairro')";
     
     if ($conn->query($sql) === TRUE) {
-        echo "Cadastro realizado com sucesso!";
+        //echo "Cadastro realizado com sucesso!";
+        header("Location: login.php");
     } else {
         echo "Erro: " . $sql . "<br>" . $conn->error;
     }
@@ -101,11 +102,11 @@ function horariosVagos($dataAtual) {
     // Verificar se há resultados
     if ($result->num_rows > 0) {
         // Iniciar o elemento select
-        echo "<select>";
+        echo "<select name='horarioSelecionado'>";
 
         // Iterar sobre os resultados e gerar as opções
         while ($row = $result->fetch_assoc()) {
-            echo "<option value='" . $row["id"] . "'>" . $row["horario"] . "</option>";
+            echo "<option value='" . $row["horario"] . "'>" . $row["horario"] . "</option>";
         }
 
         // Fechar o elemento select
@@ -121,7 +122,6 @@ function horariosVagos($dataAtual) {
 
 function pacientes($data, $horario,$email){
     $conn = ConectaBD();
-    
     // Consultar dados na tabela "users"
     $sql_users = "SELECT full_name, cpf, numCarteira FROM users WHERE email='".$email."'";
     $result_users = $conn->query($sql_users);
@@ -133,20 +133,31 @@ function pacientes($data, $horario,$email){
         $cpf = $row['cpf'];
         $num_carteira = $row['numCarteira'];
 
-        // Inserir dados na tabela "paciente"
-        $sql_paciente = "INSERT INTO paciente (full_name, horario, dia, cpf, num_carteira) 
-        VALUES ('$full_name', '$horario', '$data', '$cpf', '$num_carteira')";
+        $horario_sql = isset($horario) ? "'$horario'" : "NULL";
 
-        if ($conn->query($sql_paciente) === TRUE) {
-            echo "Dados inseridos com sucesso!";
+        $existe="SELECT * FROM pacientes WHERE carteira_sus='".$num_carteira."'";
+        $result = $conn->query($existe);
+        if ($result->num_rows > 0) {
+            //echo "A condição existe. Há pelo menos uma linha que atende à condição.";
         } else {
-            echo "Erro ao inserir dados na tabela paciente: " . $conn->error;
+            adicionarPaciente($full_name, $horario, $data, $cpf, $num_carteira);
         }
     } else {
         echo "Nenhum dado encontrado na tabela users para o ID fornecido.";
     }
+    $conn->close();
+}
 
-    // Fechar conexão com o banco de dados
+function adicionarPaciente($full_name, $horario, $dataFormatada, $cpf, $num_carteira){
+    $conn = ConectaBD();
+    $sql_paciente = "INSERT INTO pacientes (nome, horario, dia, cpf, carteira_sus) 
+    VALUES ('$full_name', '$horario', '$dataFormatada', '$cpf', '$num_carteira')";
+
+    if ($conn->query($sql_paciente) === TRUE) {
+        echo "Dados inseridos com sucesso!";
+    } else {
+        echo "Erro ao inserir dados na tabela paciente: " . $conn->error;
+    }
     $conn->close();
 }
 

@@ -1,19 +1,11 @@
 <?php
-
 session_start();
-if (isset($_SESSION["user"])) {
-   header("Location: login.php");
-   print_r($_SESSION);
-    $email = $_SESSION['email'];
-}
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Verifica se o campo "selecao" foi enviado no formulário
-    if (isset($_POST["selecao"])) {
-        $hora = $_POST["hora"];
-        $data=$_POST["criar_tabela"];
-        $email=$_SESSION['email'];
-        pacientes($data, $hora,$email);
-    }
+
+if (isset($_SESSION["email"])) {
+  $email = $_SESSION["email"];
+} else {
+  header("Location: login.php");
+  exit(); 
 }
 require('header.php');
 include('db.php');
@@ -26,36 +18,32 @@ include('db.php');
     <div class="container row" id="c.Index">
       <!-- data e horario, marcar consulta -->
       <div class="col-4" id="col4">
-        <form method="post" action="index.php" id="formIndex">
-          <h4>Escolha o dia da sua consulta:</h4>
-          <?php
-            $date = date('N');
-            if ($date == 6) {
-                $currentDate = date("d/m/Y");
-                $currentDate1 = date("d/m/Y", strtotime(" +2 day"));
-            } else {
-                $currentDate = date("d/m/Y");
-                $currentDate1 = date("d/m/Y", strtotime(" +1 day"));
+      <form action="final.php" method="post">
+      <label for="dataSelecionada">Selecione a data e o horário que deseja que sua consulta aconteça:</label>
+        <select name="dataSelecionada" id="dataSelecionada">
+            <option value="<?php echo date('Y-m-d'); ?>">Hoje: <?php echo date('d/m/Y'); ?></option>
+            <option value="<?php echo date('Y-m-d', strtotime('+1 day')); ?>">Amanhã: <?php echo date('d/m/Y', strtotime('+1 day')); ?></option>
+        </select>
+
+        <label for="selectData">
+            <?php
+            $dataSelecionada=date("d/m/Y");
+            // Definir a data com base no botão clicado
+            if (isset($_POST['btnDataAtual'])) {
+                $dataSelecionada = date("d/m/Y");
+            } elseif (isset($_POST['btnDataFutura'])) {
+                $dataSelecionada = date("d/m/Y", strtotime(" +1 day"));
             }
-            echo '<input type="submit" name="criar_tabela" value="' . $currentDate . '"></input>';
-            echo '<input type="submit" name="criar_tabela" value="' . $currentDate1 . '"></input>';
-            
-            if (isset($_POST['criar_tabela'])) {
-                $data = $_POST['criar_tabela'];
-                criarTabelaHorarios($data);
-          ?>
-          <h4 id="h4index">Escolha o horário de sua consulta</h4>
-          <label for="hora" id="labelIndex#">Selecione uma opção:</label>
-          <?php
-            if (isset($_POST['criar_tabela'])) {
-              $dataSelecionada = $_POST['criar_tabela'];
-              horariosVagos($dataSelecionada);
-              limparTabelaHorarios();
-            }
-          ?> 
-          <button type="submit" class="btn btn-primary"><a href="final.php" style="color: white;">Confirmar</a></button>
-          <?php } ?>
-        </form>
+
+            $horario=horariosVagos($dataSelecionada);
+            $_POST['horarioSelecionado'] = $horario;
+            criarTabelaHorarios($dataSelecionada);
+            limparTabelaHorarios();
+            ?>
+        </label>
+
+        <input type="submit" value="Marcar Consulta">
+    </form>
       </div>
       <!-- calendario -->
       <div class="col-8">

@@ -17,8 +17,8 @@ require('header.php');
             // Receba os dados do formulário
             $fullName = $_POST["fullname"];
             $email = $_POST["email"];
-            $senha = $_POST["password"];
-            $senhaRepeat = $_POST["repeat_password"];
+            $senha = $_POST["senha"];
+            $senhaRepeat = $_POST["repeat_senha"];
             $cpf = $_POST["cpf"];
             $telefone = $_POST["telefone"];
             $numCarteira = $_POST["numCarteira"];
@@ -30,7 +30,7 @@ require('header.php');
             $cep = $_POST["cep"];
 
 
-           $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+           $passwordHash = password_hash($senha, PASSWORD_DEFAULT);
 
            $errors = array();
            if (empty($fullName) OR empty($email) OR empty($senha) OR empty($senhaRepeat) OR empty($cpf) OR empty($telefone) OR empty($numCarteira) OR empty($endereco) OR empty($numero) OR empty($cidade) OR empty($estado) OR empty($cep) OR empty($bairro)) {
@@ -70,10 +70,10 @@ require('header.php');
                     <input type="email" class="form-control" name="email" placeholder="Email:">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" name="password" placeholder="Senha:">
+                    <input type="password" class="form-control" name="senha" placeholder="Senha:">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" name="repeat_password" placeholder="Repetir senha:">
+                    <input type="password" class="form-control" name="repeat_senha" placeholder="Repetir senha:">
                 </div>
                 <div class="form-group">
                     <input type="text" class="form-control" name="cpf" placeholder="CPF:">

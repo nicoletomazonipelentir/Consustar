@@ -1,4 +1,6 @@
 <?php
+ session_start();
+
 require('header.php');
 ?>
 <body>
@@ -6,13 +8,15 @@ require('header.php');
         <?php
         if (isset($_POST["login"])) {
            $email = $_POST["email"];
-           //$_SESSION['email'] = $email;
+           $_SESSION['email'] = $email;
            $password = $_POST["password"];
             require_once "db.php";
             $resultadoLogin = loginUser($email, $password);
 
             if ($resultadoLogin == true) {
                 header("Location: index.php");
+            }else{
+                header("Location: login.php");
             }
         }
         ?>
