@@ -48,3 +48,18 @@ legend{
     top: -20px;
     font-size: 9px;   
 }
+
+@media (max-width: 768px) {
+    #h3Texto {
+        font-size: 1.2rem;
+    }
+
+    #botaoLogin,
+    #botaoCadastro {
+        width: 100%;
+    }
+
+    #col4 {
+        margin-bottom: 20px;
+    }
+}

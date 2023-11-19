@@ -234,3 +234,28 @@ label {
   background-color: #005BAB;
   color: white;
 }
+
+@media (max-width: 768px) {
+    #h3Texto {
+        font-size: 1.2rem;
+    }
+
+    #botaoLogin,
+    #botaoCadastro {
+        width: 100%;
+    }
+
+    #col4 {
+        margin-bottom: 20px;
+    }
+
+    #logo{
+        height: auto;
+        display: block;
+        margin: 0 auto;
+    }
+    .container{
+        width: 80%;
+    }
+}
+
