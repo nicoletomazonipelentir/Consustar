@@ -1,0 +1,4 @@
+1-tirar horario marcado da tabela de horarios
+2-fazer o cancelar consulta
+
+urgente=ver o pq n marca mais o horario que antes funcinava

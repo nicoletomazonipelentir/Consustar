@@ -23,7 +23,7 @@ require('header.php');
                 <center>
                     <table width=600 border=”1″>
                     <br><br>
-                    <p id="textoHorarios"><CENTER><h3>Horários Preenchidos</h3><time datetime="<?php echo date('c'); ?>"><?php echo date('d/m/Y'); ?></time></p>
+                    <p id="textoHorarios"><CENTER><h3>Horários Vagos</h3><time datetime="<?php echo date('c'); ?>"><?php echo date('d/m/Y'); ?></time></p>
                     <br><br>
                     <?php
                     include 'db.php';

@@ -189,7 +189,7 @@ function tabelaOcupados(){
         }
 
     } else {
-        echo "0 resultados encontrados";
+        echo "Todos os horários estão ocupados";
     }
     $conn->close();
 }
