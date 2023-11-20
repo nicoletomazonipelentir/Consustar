@@ -11,7 +11,6 @@ if (isset($_SESSION["email"])) {
   pacientes($data, $horario, $email);
 }
 ?>
-<!-- Juro que não entendi como tu puxou os outros styles nos outro arquivo, vou deixar aq e dps te pergunto ja q c ta no dentist-->
 <head>
   <style> 
     body {
@@ -39,7 +38,7 @@ if (isset($_SESSION["email"])) {
     }
 
     button {
-      background-color: #4caf50;
+      background-color: #005BAB;
       color: #fff;
       padding: 10px 20px;
       font-size: 16px;
@@ -65,7 +64,7 @@ if (isset($_SESSION["email"])) {
     }
 
     input[type="button"]:hover {
-      background-color: #d32f2f;
+      background-color: #005BAB;
     }
 
     a {

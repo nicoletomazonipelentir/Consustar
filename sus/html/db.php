@@ -153,11 +153,11 @@ function adicionarPaciente($full_name, $horario, $dataFormatada, $cpf, $num_cart
     $sql_paciente = "INSERT INTO pacientes (nome, horario, dia, cpf, carteira_sus) 
     VALUES ('$full_name', '$horario', '$dataFormatada', '$cpf', '$num_carteira')";
 
-    if ($conn->query($sql_paciente) === TRUE) {
-        echo "Dados inseridos com sucesso!";
-    } else {
-        echo "Erro ao inserir dados na tabela paciente: " . $conn->error;
-    }
+    // if ($conn->query($sql_paciente) === TRUE) {
+    //     echo "Dados inseridos com sucesso!";
+    // } else {
+    //     echo "Erro ao inserir dados na tabela paciente: " . $conn->error;
+    // }
     $conn->close();
 }
 

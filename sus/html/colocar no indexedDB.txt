@@ -1,4 +1,5 @@
 1-tirar horario marcado da tabela de horarios
 2-fazer o cancelar consulta
+3-verificar se ja esta com consulta marcada, caso estiver, entra direto na tela final, se não entra normal
 
 urgente=ver o pq n marca mais o horario que antes funcinava
