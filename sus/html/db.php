@@ -194,7 +194,6 @@ function tabelaOcupados(){
     $conn->close();
 }
 
-
 function excluirHorario($data,$horario){
     $conn = ConectaBD();
 
@@ -209,4 +208,20 @@ function excluirHorario($data,$horario){
 
     $conn->close();
 }
+
+//tem q testar isso 
+function restaurarHorario($data,$horario) {
+    $conn = ConectaBD();
+    // Consulta SQL para inserir o horário e a data de volta na tabela "horarios"
+    $sqlInserirHorario = "INSERT INTO horarios (id, horario) VALUES ('$data', '$horario')";
+
+    if ($conn->query($sqlInserirHorario) === TRUE) {
+        echo "Horário e data restaurados com sucesso para data: $data, horário: $horario.<br>";
+    } else {
+        echo "Erro ao restaurar horário e data: " . $conn->error;
+    }
+    // Fechar a conexão
+    $conn->close();
+}
+
 ?>

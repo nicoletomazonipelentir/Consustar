@@ -11,6 +11,11 @@ if (isset($_SESSION["email"])) {
   pacientes($data, $horario, $email);
   excluirHorario($data,$horario);
 }
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  if ($_POST["acao"] == "Cancelar Consulta") {
+      restaurarHorario($data,$horario);
+  }
+}
 ?>
 <head>
   <style> 
