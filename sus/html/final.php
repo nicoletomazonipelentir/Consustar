@@ -9,6 +9,7 @@ if (isset($_SESSION["email"])) {
   $horario = $_POST['horarioSelecionado'];
   $email = $_SESSION["email"];
   pacientes($data, $horario, $email);
+  excluirHorario($data,$horario);
 }
 ?>
 <head>

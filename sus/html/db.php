@@ -194,4 +194,19 @@ function tabelaOcupados(){
     $conn->close();
 }
 
+
+function excluirHorario($data,$horario){
+    $conn = ConectaBD();
+
+    $sqlExcluirHorario = "DELETE FROM horarios WHERE id = '$data' AND horario = '$horario'";
+
+    // Executar a consulta
+    // if ($conn->query($sqlExcluirHorario) === TRUE) {
+    //     echo "Registro excluído com sucesso para data: $data, horário: $horario.<br>";
+    // } else {
+    //     echo "Erro ao excluir registro: " . $conn->error;
+    // }
+
+    $conn->close();
+}
 ?>
