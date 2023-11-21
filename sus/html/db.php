@@ -140,7 +140,7 @@ function pacientes($data, $horario,$email){
         if ($result->num_rows > 0) {
             //echo "A condição existe. Há pelo menos uma linha que atende à condição.";
         } else {
-            adicionarPaciente($full_name, $horario, $data, $cpf, $num_carteira);
+            adicionarPaciente($conn, $full_name, $horario, $data, $cpf, $num_carteira);
         }
     } else {
         echo "Nenhum dado encontrado na tabela users para o ID fornecido.";
@@ -148,17 +148,16 @@ function pacientes($data, $horario,$email){
     $conn->close();
 }
 
-function adicionarPaciente($full_name, $horario, $dataFormatada, $cpf, $num_carteira){
-    $conn = ConectaBD();
+function adicionarPaciente($conn, $full_name, $horario, $dataFormatada, $cpf, $num_carteira){
     $sql_paciente = "INSERT INTO pacientes (nome, horario, dia, cpf, carteira_sus) 
     VALUES ('$full_name', '$horario', '$dataFormatada', '$cpf', '$num_carteira')";
 
-    // if ($conn->query($sql_paciente) === TRUE) {
-    //     echo "Dados inseridos com sucesso!";
-    // } else {
-    //     echo "Erro ao inserir dados na tabela paciente: " . $conn->error;
-    // }
-    $conn->close();
+    // Executar a instrução SQL
+    if ($conn->query($sql_paciente) === TRUE) {
+        echo "Paciente adicionado com sucesso.";
+    } else {
+        echo "Erro ao adicionar paciente: " . $conn->error;
+    }
 }
 
 function tabelaOcupados(){
@@ -199,13 +198,14 @@ function excluirHorario($data,$horario){
 
     $sqlExcluirHorario = "DELETE FROM horarios WHERE id = '$data' AND horario = '$horario'";
 
-    // Executar a consulta
+    // // Executa a consulta no banco de dados
     // if ($conn->query($sqlExcluirHorario) === TRUE) {
-    //     echo "Registro excluído com sucesso para data: $data, horário: $horario.<br>";
+    //     echo "Registro excluído com sucesso.";
     // } else {
     //     echo "Erro ao excluir registro: " . $conn->error;
     // }
 
+    // Fecha a conexão com o banco de dados
     $conn->close();
 }
 
@@ -223,5 +223,7 @@ function restaurarHorario($data,$horario) {
     // Fechar a conexão
     $conn->close();
 }
+
+
 
 ?>

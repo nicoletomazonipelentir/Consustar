@@ -3,19 +3,22 @@ session_start();
 require('header.php');
 include('db.php');
 
+print_r($_POST);
+
+
 if (isset($_SESSION["email"])) {
   $data = $_POST['dataSelecionada'];
+$horario = $_POST['horarioSelecionado'];
   $data_formatada = DateTime::createFromFormat('Y-m-d', $data)->format('d/m/Y');
-  $horario = $_POST['horarioSelecionado'];
   $email = $_SESSION["email"];
   pacientes($data, $horario, $email);
   excluirHorario($data,$horario);
+
+  // if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['cancela_consulta'])) {
+  //   restaurarHorario($data,$horario);
+  // }
 }
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  if ($_POST["acao"] == "Cancelar Consulta") {
-      restaurarHorario($data,$horario);
-  }
-}
+
 ?>
 <head>
   <style> 
@@ -87,7 +90,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <h2>Hora: <?php echo $horario;  ?></h2>
 
     <button><a href="logout.php">Sair</button>
-    <input type="button" value="Cancelar Consulta">
+   <!-- index.php -->
+    <form method="post">
+        <button type="submit" name="cancelarConsulta">Cancelar Consulta</button>
+    </form>
+
+    <?php
+    // Verifica se o formulário foi enviado
+    if (isset($_POST['cancelarConsulta'])) {
+        // Chama a função para cancelar a consulta
+        restaurarHorario($data, $horario);
+    }
+    ?>
   </div>
 
 </body>
