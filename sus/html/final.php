@@ -4,19 +4,30 @@ require('header.php');
 include('db.php');
 
 print_r($_POST);
-
-
 if (isset($_SESSION["email"])) {
-  $data = $_POST['dataSelecionada'];
-$horario = $_POST['horarioSelecionado'];
-  $data_formatada = DateTime::createFromFormat('Y-m-d', $data)->format('d/m/Y');
-  $email = $_SESSION["email"];
-  pacientes($data, $horario, $email);
-  excluirHorario($data,$horario);
+  $data = isset($_POST['dataSelecionada']) ? $_POST['dataSelecionada'] : null;
+  $horario = isset($_POST['horarioSelecionado']) ? $_POST['horarioSelecionado'] : null;
 
-  // if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['cancela_consulta'])) {
-  //   restaurarHorario($data,$horario);
-  // }
+  if ($data && $horario) {
+      $data_formatada = DateTime::createFromFormat('Y-m-d', $data);
+      // Verifica se a conversão foi bem-sucedida antes de chamar o formato
+      if ($data_formatada !== false) {
+          $data_formatada = $data_formatada->format('d/m/Y');
+          $email = $_SESSION["email"];
+          pacientes($data, $horario, $email);
+          excluirHorario($data, $horario);
+
+          // Verifica se o formulário foi enviado
+          if (isset($_POST['cancelarConsulta'])) {
+              // Chama a função para cancelar a consulta
+              restaurarHorario($data, $horario);
+          }
+      } else {
+          echo "Erro ao formatar a data.";
+      }
+  } else {
+      echo "Data e/ou horário não foram selecionados.";
+  }
 }
 
 ?>
@@ -95,13 +106,6 @@ $horario = $_POST['horarioSelecionado'];
         <button type="submit" name="cancelarConsulta">Cancelar Consulta</button>
     </form>
 
-    <?php
-    // Verifica se o formulário foi enviado
-    if (isset($_POST['cancelarConsulta'])) {
-        // Chama a função para cancelar a consulta
-        restaurarHorario($data, $horario);
-    }
-    ?>
   </div>
 
 </body>
