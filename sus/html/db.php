@@ -140,7 +140,7 @@ function pacientes($data, $horario,$email){
         if ($result->num_rows > 0) {
             //echo "A condição existe. Há pelo menos uma linha que atende à condição.";
         } else {
-            adicionarPaciente($conn, $full_name, $horario, $data, $cpf, $num_carteira);
+            adicionarPaciente($conn, $full_name, $horario, $data, $cpf, $num_carteira, $email);
         }
     } else {
         echo "Nenhum dado encontrado na tabela users para o ID fornecido.";
@@ -148,9 +148,9 @@ function pacientes($data, $horario,$email){
     $conn->close();
 }
 
-function adicionarPaciente($conn, $full_name, $horario, $dataFormatada, $cpf, $num_carteira){
-    $sql_paciente = "INSERT INTO pacientes (nome, horario, dia, cpf, carteira_sus) 
-    VALUES ('$full_name', '$horario', '$dataFormatada', '$cpf', '$num_carteira')";
+function adicionarPaciente($conn, $full_name, $horario, $dataFormatada, $cpf, $num_carteira, $email){
+    $sql_paciente = "INSERT INTO pacientes (nome, horario, dia, cpf, carteira_sus, email) 
+    VALUES ('$full_name', '$horario', '$dataFormatada', '$cpf', '$num_carteira','$email')";
 
     // Executar a instrução SQL
     if ($conn->query($sql_paciente) === TRUE) {
@@ -224,6 +224,22 @@ function restaurarHorario($data,$horario) {
     $conn->close();
 }
 
+function verificarLogin($email) {
+    $conn = ConectaBD();
 
+    // Consulta para verificar se o email e a senha correspondem a um paciente na tabela
+    $sql = "SELECT * FROM pacientes WHERE email = '$email'";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        // Usuário autenticado com sucesso
+        $_SESSION["email"] = $email;
+        return true;
+    } else {
+        // Usuário não encontrado
+        return false;
+    }
+    $conn->close();
+}
 
 ?>

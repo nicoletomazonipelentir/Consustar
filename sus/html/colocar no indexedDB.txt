@@ -1,2 +1,5 @@
 2-fazer o cancelar consulta
 3-verificar se ja esta com consulta marcada, caso estiver, entra direto na tela final, se não entra normal
+
+
+TEM Q VER PQ O CPF TA VINDO O NUMERO DE TELEFONE

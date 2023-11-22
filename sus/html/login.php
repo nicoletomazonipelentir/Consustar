@@ -1,6 +1,6 @@
 <?php
  session_start();
-
+include('db.php');
 require('header.php');
 ?>
 <body>
@@ -14,7 +14,15 @@ require('header.php');
             $resultadoLogin = loginUser($email, $password);
 
             if ($resultadoLogin == true) {
-                header("Location: index.php");
+                //header("Location: index.php");
+
+                if (verificarLogin($email)) {
+                    header("Location: final.php");
+                    exit();
+                } else {
+                    header("Location: index.php");
+                    exit();
+                }
             }else{
                 header("Location: login.php");
             }
