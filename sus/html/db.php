@@ -242,4 +242,26 @@ function verificarLogin($email) {
     $conn->close();
 }
 
+function mostraMarcado($email){
+    $conn = ConectaBD();
+    $sql = "SELECT horario, dia FROM pacientes WHERE email='$email'";
+
+    $result = $conn->query($sql);
+    
+    if ($result->num_rows > 0) {
+        // Saída de dados de cada linha
+        while($row = $result->fetch_assoc()) {
+            $dataFormatada = date('d/m/Y', strtotime($row["dia"]));
+
+            echo '<h2>Data: '.$dataFormatada.'</h2>
+            <h2>Hora: '.$row["horario"].'</h2>';
+
+            return $row;
+        }
+    } else {
+        echo "0 resultados encontrados";
+    }
+    $conn->close();
+}
+
 ?>

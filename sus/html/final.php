@@ -5,8 +5,13 @@ include('db.php');
 
 print_r($_POST);
 if (isset($_SESSION["email"])) {
-  $data = isset($_POST['dataSelecionada']) ? $_POST['dataSelecionada'] : null;
-  $horario = isset($_POST['horarioSelecionado']) ? $_POST['horarioSelecionado'] : null;
+  $data = $_POST['dataSelecionada'];
+  $horario = $_POST['horarioSelecionado'];
+
+  if ($data=='' || $horario=='') {
+    $data=$row['dia'];
+    $horario=$row['horario'];
+  }
 
   if ($data && $horario) {
       $data_formatada = DateTime::createFromFormat('Y-m-d', $data);
@@ -19,6 +24,8 @@ if (isset($_SESSION["email"])) {
 
           // Verifica se o formulário foi enviado
           if (isset($_POST['cancelarConsulta'])) {
+              echo "data-=".$data=$row['dia'];
+              echo "data-=".$horario=$row['horario'];
               // Chama a função para cancelar a consulta
               restaurarHorario($data, $horario);
           }
@@ -97,8 +104,10 @@ if (isset($_SESSION["email"])) {
 <body>
   <div class="container" id="c.F">
     <h1>Sua consulta foi agendada!</h1>
-    <h2>Data: <?php echo $data_formatada; ?></h2>
-    <h2>Hora: <?php echo $horario;  ?></h2>
+    <?php
+    mostraMarcado($_SESSION["email"]);
+    //print_r(mostraMarcado($_SESSION["email"]));
+    ?>
 
     <button><a href="logout.php">Sair</button>
    <!-- index.php -->
