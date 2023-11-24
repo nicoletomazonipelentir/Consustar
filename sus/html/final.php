@@ -1,41 +1,34 @@
 <?php
+
 session_start();
 require('header.php');
 include('db.php');
 
 print_r($_POST);
-if (isset($_SESSION["email"])) {
-  $data = $_POST['dataSelecionada'];
-  $horario = $_POST['horarioSelecionado'];
-
-  if ($data=='' || $horario=='') {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $row=pegaragenda($_SESSION["email"]);
+   // print_r($row);
     $data=$row['dia'];
     $horario=$row['horario'];
-  }
 
-  if ($data && $horario) {
-      $data_formatada = DateTime::createFromFormat('Y-m-d', $data);
-      // Verifica se a conversão foi bem-sucedida antes de chamar o formato
-      if ($data_formatada !== false) {
-          $data_formatada = $data_formatada->format('d/m/Y');
-          $email = $_SESSION["email"];
-          pacientes($data, $horario, $email);
-          excluirHorario($data, $horario);
+    if ($data==NULL || $horario==NULL) {
+      $data=$_POST['dataSelecionada'];
+      $horario=$_POST['horarioSelecionado'];
+    }
 
-          // Verifica se o formulário foi enviado
-          if (isset($_POST['cancelarConsulta'])) {
-              echo "data-=".$data=$row['dia'];
-              echo "data-=".$horario=$row['horario'];
-              // Chama a função para cancelar a consulta
-              restaurarHorario($data, $horario);
-          }
-      } else {
-          echo "Erro ao formatar a data.";
-      }
-  } else {
-      echo "Data e/ou horário não foram selecionados.";
-  }
+    $email = $_SESSION["email"];
+    pacientes($data, $horario, $email);
+    excluirHorario($data, $horario);
+
+    
+    if (isset($_POST['cancelarConsulta'])) {
+      restaurarHorario($data,$horario);
+      deletaPaciente($email);
+      header("Location: index.php");
+    }
+    
 }
+
 
 ?>
 <head>
@@ -111,8 +104,11 @@ if (isset($_SESSION["email"])) {
 
     <button><a href="logout.php">Sair</button>
    <!-- index.php -->
-    <form method="post">
-        <button type="submit" name="cancelarConsulta">Cancelar Consulta</button>
+   <form method="post">
+      <input type="hidden" name="dataSelecionada" value="<?php echo isset($data) ? $data : 'caca'; ?>">
+      <input type="hidden" name="horarioSelecionado" value="<?php echo isset($horario) ? $horario : 'cacaa'; ?>">
+
+      <button type="submit" name="cancelarConsulta">Cancelar Consulta</button>
     </form>
 
   </div>

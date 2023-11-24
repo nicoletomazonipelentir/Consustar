@@ -3,3 +3,5 @@
 
 
 TEM Q VER PQ O CPF TA VINDO O NUMERO DE TELEFONE
+
+tem que uppar no vercel e arrumar o banco no postgres

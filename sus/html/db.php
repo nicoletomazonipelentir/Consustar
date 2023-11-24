@@ -66,6 +66,7 @@ function limparTabelaHorarios() {
 
     // Cria a consulta SQL para deletar os registros mais antigos
     $sqlDelete = "DELETE FROM Horarios WHERE id < '$dataLimite'";
+    $conn->query($sqlDelete);
 
     // Fecha a conexão com o banco de dados
     $conn->close();
@@ -152,12 +153,13 @@ function adicionarPaciente($conn, $full_name, $horario, $dataFormatada, $cpf, $n
     $sql_paciente = "INSERT INTO pacientes (nome, horario, dia, cpf, carteira_sus, email) 
     VALUES ('$full_name', '$horario', '$dataFormatada', '$cpf', '$num_carteira','$email')";
 
+    //$conn->query($sql_paciente);
     // Executar a instrução SQL
-    if ($conn->query($sql_paciente) === TRUE) {
-        echo "Paciente adicionado com sucesso.";
-    } else {
-        echo "Erro ao adicionar paciente: " . $conn->error;
-    }
+    // if ($conn->query($sql_paciente) === TRUE) {
+    //     echo "Paciente adicionado com sucesso.";
+    // } else {
+    //     echo "Erro ao adicionar paciente: " . $conn->error;
+    // }
 }
 
 function tabelaOcupados(){
@@ -193,12 +195,12 @@ function tabelaOcupados(){
     $conn->close();
 }
 
-function excluirHorario($data,$horario){
+function excluirHorario($data, $horario){
     $conn = ConectaBD();
 
-    $sqlExcluirHorario = "DELETE FROM horarios WHERE id = '$data' AND horario = '$horario'";
-
-    // // Executa a consulta no banco de dados
+    $sqlExcluirHorario = "DELETE FROM horarios WHERE id = '".$data."' AND horario = '".$horario."'";
+    $conn->query($sqlExcluirHorario);
+    // Executa a consulta no banco de dados
     // if ($conn->query($sqlExcluirHorario) === TRUE) {
     //     echo "Registro excluído com sucesso.";
     // } else {
@@ -214,22 +216,18 @@ function restaurarHorario($data,$horario) {
     $conn = ConectaBD();
     // Consulta SQL para inserir o horário e a data de volta na tabela "horarios"
     $sqlInserirHorario = "INSERT INTO horarios (id, horario) VALUES ('$data', '$horario')";
-
-    if ($conn->query($sqlInserirHorario) === TRUE) {
-        echo "Horário e data restaurados com sucesso para data: $data, horário: $horario.<br>";
-    } else {
-        echo "Erro ao restaurar horário e data: " . $conn->error;
-    }
+    $conn->query($sqlInserirHorario);
+    // if ($conn->query($sqlInserirHorario) === TRUE) {
+    //     echo "Horário e data restaurados com sucesso para data: $data, horário: $horario.<br>";
+    // } else {
+    //     echo "Erro ao restaurar horário e data: " . $conn->error;
+    // }
     // Fechar a conexão
     $conn->close();
 }
 
 function verificarLogin($email) {
-    $conn = ConectaBD();
-
-    // Consulta para verificar se o email e a senha correspondem a um paciente na tabela
-    $sql = "SELECT * FROM pacientes WHERE email = '$email'";
-    $result = $conn->query($sql);
+    $result=verificaPaciente($email);
 
     if ($result->num_rows > 0) {
         // Usuário autenticado com sucesso
@@ -243,11 +241,9 @@ function verificarLogin($email) {
 }
 
 function mostraMarcado($email){
-    $conn = ConectaBD();
-    $sql = "SELECT horario, dia FROM pacientes WHERE email='$email'";
+    //$conn = ConectaBD();
+    $result=verificaPaciente($email);
 
-    $result = $conn->query($sql);
-    
     if ($result->num_rows > 0) {
         // Saída de dados de cada linha
         while($row = $result->fetch_assoc()) {
@@ -261,7 +257,33 @@ function mostraMarcado($email){
     } else {
         echo "0 resultados encontrados";
     }
+   // $conn->close();
+}
+
+function pegaragenda($email){
+    $result=verificaPaciente($email);
+    
+    return $row = $result->fetch_assoc();
+
     $conn->close();
 }
 
+function verificaPaciente($email){
+    $conn = ConectaBD();
+
+    $sql = "SELECT * FROM pacientes WHERE email = '$email'";
+    $result = $conn->query($sql);
+    return $result;
+}
+
+function deletaPaciente($email){
+    $conn = ConectaBD();
+
+    $conn = ConectaBD();
+    // Consulta SQL para inserir o horário e a data de volta na tabela "horarios"
+    $sqlExcluirHorario = "DELETE FROM pacientes WHERE email = '$email'";
+    $conn->query($sqlExcluirHorario);
+
+    $conn->close();
+}
 ?>
