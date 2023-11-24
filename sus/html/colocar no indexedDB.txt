@@ -1,6 +1,6 @@
 1-tem que arrumar a tabela pra pegar em ordem crescente
-2-botoes do home
-3-botoes do final
+3-botoes do final(o a ta ocupando um espaço discomunal)
+2-tem que ver o pq dele entrar direto pro final e não respeitar o login
 
 TEM Q VER PQ O CPF TA VINDO O NUMERO DE TELEFONE
 

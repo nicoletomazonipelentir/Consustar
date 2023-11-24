@@ -114,13 +114,15 @@ body::after {
 
 #botaoLogin,
 #botaoCadastro {
-    width: 30%;
+    width: 70%;
     margin-top: 10px;
     text-align: center;
-    margin-left: 200px;
     display: block;  
 }
 
+#botaoLogin{
+    margin-left: 50px;
+}
 
 
 #horarios {
