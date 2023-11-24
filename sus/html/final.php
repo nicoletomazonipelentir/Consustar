@@ -4,22 +4,23 @@ session_start();
 require('header.php');
 include('db.php');
 
-print_r($_POST);
+//print_r($_POST);
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $row=pegaragenda($_SESSION["email"]);
    // print_r($row);
-    $data=$row['dia'];
-    $horario=$row['horario'];
+   $data=$_POST['dataSelecionada'];
+   $horario=$_POST['horarioSelecionado'];
 
-    if ($data==NULL || $horario==NULL) {
-      $data=$_POST['dataSelecionada'];
-      $horario=$_POST['horarioSelecionado'];
+    if ($data=='' || $horario=='') {
+      
+      $data=$row['dia'];
+      $horario=$row['horario'];
     }
 
     $email = $_SESSION["email"];
     pacientes($data, $horario, $email);
     excluirHorario($data, $horario);
-
+    //mostraMarcado($_SESSION["email"]);
     
     if (isset($_POST['cancelarConsulta'])) {
       restaurarHorario($data,$horario);
@@ -28,8 +29,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     
 }
-
-
 ?>
 <head>
   <style> 

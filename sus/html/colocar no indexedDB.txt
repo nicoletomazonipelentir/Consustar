@@ -1,8 +1,7 @@
-2-fazer o cancelar consulta
-
+1-tem que arrumar a tabela pra pegar em ordem crescente
+2-botoes do home
+3-botoes do final
 
 TEM Q VER PQ O CPF TA VINDO O NUMERO DE TELEFONE
 
-tem que uppar no vercel e arrumar o banco no postgres
-
-meu problema é no cancelar a consulta e depois marcar uma consulta nova
+tem que uppar no vercel e arrumar o banco no postgres(isso tem q ver ainda)

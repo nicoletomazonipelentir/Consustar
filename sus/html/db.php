@@ -94,7 +94,9 @@ function horariosVagos($dataAtual) {
     $dataFormatada = $dataObj->format('Y-m-d');
 
     // Consulta SQL usando prepared statement para evitar injeção SQL
-    $sql = "SELECT id, horario FROM Horarios WHERE id = '".$dataFormatada."'";
+    //$sql = "SELECT * FROM Horarios WHERE id = $dataFormatada ORDER BY horario ASC";
+    //$sql = "SELECT * FROM Horarios ORDER BY horario ASC";
+    $sql = "SELECT * FROM Horarios WHERE id = $dataFormatada";
     $stmt = $conn->prepare($sql);
     //$stmt->bind_param("s", $dataFormatada);
     $stmt->execute();
@@ -153,7 +155,7 @@ function adicionarPaciente($conn, $full_name, $horario, $dataFormatada, $cpf, $n
     $sql_paciente = "INSERT INTO pacientes (nome, horario, dia, cpf, carteira_sus, email) 
     VALUES ('$full_name', '$horario', '$dataFormatada', '$cpf', '$num_carteira','$email')";
 
-    //$conn->query($sql_paciente);
+    $conn->query($sql_paciente);
     // Executar a instrução SQL
     // if ($conn->query($sql_paciente) === TRUE) {
     //     echo "Paciente adicionado com sucesso.";
@@ -277,7 +279,6 @@ function verificaPaciente($email){
 }
 
 function deletaPaciente($email){
-    $conn = ConectaBD();
 
     $conn = ConectaBD();
     // Consulta SQL para inserir o horário e a data de volta na tabela "horarios"
