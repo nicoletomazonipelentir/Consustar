@@ -1,7 +1,8 @@
 2-fazer o cancelar consulta
-3-verificar se ja esta com consulta marcada, caso estiver, entra direto na tela final, se não entra normal
 
 
 TEM Q VER PQ O CPF TA VINDO O NUMERO DE TELEFONE
 
 tem que uppar no vercel e arrumar o banco no postgres
+
+meu problema é no cancelar a consulta e depois marcar uma consulta nova
