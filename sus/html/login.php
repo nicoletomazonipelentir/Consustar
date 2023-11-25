@@ -17,10 +17,17 @@ require('header.php');
                 //header("Location: index.php");
 
                 if (verificarLogin($email)) {
-                    header("Location: final.php");
+                    if (autenticaPaciente($email)) {
+                        header("Location: final.php");
+                        exit();
+                    }else{
+                        header("Location: index.php");
+                        exit();
+                    }
+                    header("Location: index.php");
                     exit();
                 } else {
-                    header("Location: index.php");
+                    header("Location: home.php");
                     exit();
                 }
             }else{

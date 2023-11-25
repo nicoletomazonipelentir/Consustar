@@ -48,7 +48,6 @@ function criarTabelaHorarios($dataAtual) {
 
         if ($result->num_rows == 0) {
             $sqlInsert = "INSERT INTO Horarios (id, horario) VALUES ('$dataFormatada', '$horario')";
-            // Executa a instrução de inserção
             $conn->query($sqlInsert);
         } 
     }
@@ -58,17 +57,13 @@ function criarTabelaHorarios($dataAtual) {
 }
 
 function limparTabelaHorarios() {
-    // Estabelece a conexão com o banco de dados
     $conn = ConectaBD();
     
-    // Obtém a data atual menos dois dias
     $dataLimite = date("Y-m-d");
 
-    // Cria a consulta SQL para deletar os registros mais antigos
     $sqlDelete = "DELETE FROM Horarios WHERE id < '$dataLimite'";
     $conn->query($sqlDelete);
 
-    // Fecha a conexão com o banco de dados
     $conn->close();
 }
 
@@ -79,7 +74,6 @@ function Cadastro($fullname,$email,$senha,$senhaRepeat,$telefone,$cpf,$numCartei
     VALUES ('$fullname','$email','$senha','$telefone','$cpf','$numCarteira','$endereco','$numero','$cidade','$estado','$cep','$bairro')";
     
     if ($conn->query($sql) === TRUE) {
-        //echo "Cadastro realizado com sucesso!";
         header("Location: login.php");
     } else {
         echo "Erro: " . $sql . "<br>" . $conn->error;
@@ -93,44 +87,33 @@ function horariosVagos($dataAtual) {
     $dataObj = DateTime::createFromFormat('d/m/Y', $dataAtual);
     $dataFormatada = $dataObj->format('Y-m-d');
 
-    // Consulta SQL usando prepared statement para evitar injeção SQL
-    //$sql = "SELECT * FROM Horarios WHERE id = $dataFormatada ORDER BY horario ASC";
-    //$sql = "SELECT * FROM Horarios ORDER BY horario ASC";
     $sql = "SELECT * FROM Horarios WHERE id = $dataFormatada";
     $stmt = $conn->prepare($sql);
-    //$stmt->bind_param("s", $dataFormatada);
     $stmt->execute();
     $result = $stmt->get_result();
 
-    // Verificar se há resultados
     if ($result->num_rows > 0) {
-        // Iniciar o elemento select
         echo "<select name='horarioSelecionado'>";
 
-        // Iterar sobre os resultados e gerar as opções
         while ($row = $result->fetch_assoc()) {
             echo "<option value='" . $row["horario"] . "'>" . $row["horario"] . "</option>";
         }
 
-        // Fechar o elemento select
         echo "</select>";
     } else {
         echo "Nenhum resultado encontrado.";
     }
 
-    // Fechar o statement e a conexão
     $stmt->close();
     $conn->close();
 }
 
 function pacientes($data, $horario,$email){
     $conn = ConectaBD();
-    // Consultar dados na tabela "users"
     $sql_users = "SELECT full_name, cpf, numCarteira FROM users WHERE email='".$email."'";
     $result_users = $conn->query($sql_users);
 
     if ($result_users->num_rows > 0) {
-        // Extraindo os dados da tabela "users"
         $row = $result_users->fetch_assoc();
         $full_name = $row['full_name'];
         $cpf = $row['cpf'];
@@ -156,17 +139,10 @@ function adicionarPaciente($conn, $full_name, $horario, $dataFormatada, $cpf, $n
     VALUES ('$full_name', '$horario', '$dataFormatada', '$cpf', '$num_carteira','$email')";
 
     $conn->query($sql_paciente);
-    // Executar a instrução SQL
-    // if ($conn->query($sql_paciente) === TRUE) {
-    //     echo "Paciente adicionado com sucesso.";
-    // } else {
-    //     echo "Erro ao adicionar paciente: " . $conn->error;
-    // }
 }
 
 function tabelaOcupados(){
     $conn = ConectaBD();
-    // Consulta SQL para recuperar os dados
     $sql = "SELECT id, horario FROM horarios WHERE id='".date("Y-m-d")."'";
     $result = $conn->query($sql);
 
@@ -202,52 +178,53 @@ function excluirHorario($data, $horario){
 
     $sqlExcluirHorario = "DELETE FROM horarios WHERE id = '".$data."' AND horario = '".$horario."'";
     $conn->query($sqlExcluirHorario);
-    // Executa a consulta no banco de dados
-    // if ($conn->query($sqlExcluirHorario) === TRUE) {
-    //     echo "Registro excluído com sucesso.";
-    // } else {
-    //     echo "Erro ao excluir registro: " . $conn->error;
-    // }
-
-    // Fecha a conexão com o banco de dados
     $conn->close();
 }
 
 //tem q testar isso 
 function restaurarHorario($data,$horario) {
     $conn = ConectaBD();
-    // Consulta SQL para inserir o horário e a data de volta na tabela "horarios"
     $sqlInserirHorario = "INSERT INTO horarios (id, horario) VALUES ('$data', '$horario')";
     $conn->query($sqlInserirHorario);
-    // if ($conn->query($sqlInserirHorario) === TRUE) {
-    //     echo "Horário e data restaurados com sucesso para data: $data, horário: $horario.<br>";
-    // } else {
-    //     echo "Erro ao restaurar horário e data: " . $conn->error;
-    // }
-    // Fechar a conexão
     $conn->close();
 }
 
+function verificaCadastro($email){
+    $conn = ConectaBD();
+
+    $sql = "SELECT * FROM users WHERE email = '$email'";
+    $result = $conn->query($sql);
+    return $result;
+}
+
 function verificarLogin($email) {
-    $result=verificaPaciente($email);
+    $result=verificaCadastro($email);
 
     if ($result->num_rows > 0) {
-        // Usuário autenticado com sucesso
         $_SESSION["email"] = $email;
         return true;
     } else {
-        // Usuário não encontrado
+        return false;
+    }
+    $conn->close();
+}
+
+function autenticaPaciente($email) {
+    $result=verificaPaciente($email);
+
+    if ($result->num_rows > 0) {
+        $_SESSION["email"] = $email;
+        return true;
+    } else {
         return false;
     }
     $conn->close();
 }
 
 function mostraMarcado($email){
-    //$conn = ConectaBD();
     $result=verificaPaciente($email);
 
     if ($result->num_rows > 0) {
-        // Saída de dados de cada linha
         while($row = $result->fetch_assoc()) {
             $dataFormatada = date('d/m/Y', strtotime($row["dia"]));
 
@@ -259,7 +236,6 @@ function mostraMarcado($email){
     } else {
         echo "0 resultados encontrados";
     }
-   // $conn->close();
 }
 
 function pegaragenda($email){
@@ -279,9 +255,7 @@ function verificaPaciente($email){
 }
 
 function deletaPaciente($email){
-
     $conn = ConectaBD();
-    // Consulta SQL para inserir o horário e a data de volta na tabela "horarios"
     $sqlExcluirHorario = "DELETE FROM pacientes WHERE email = '$email'";
     $conn->query($sqlExcluirHorario);
 
