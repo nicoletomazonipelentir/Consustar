@@ -26,20 +26,23 @@ include('db.php');
         </select>
 
         <label for="selectData">
+          <select name='horarioSelecionado'>
             <?php
             $dataSelecionada=date("d/m/Y");
             // Definir a data com base no botão clicado
             if (isset($_POST['btnDataAtual'])) {
-                $dataSelecionada = date("d/m/Y");
+              $dataSelecionada = date("d/m/Y");
             } elseif (isset($_POST['btnDataFutura'])) {
-                $dataSelecionada = date("d/m/Y", strtotime(" +1 day"));
+              $dataSelecionada = date("d/m/Y", strtotime(" +1 day"));
             }
 
             $horario=horariosVagos($dataSelecionada);
             $_POST['horarioSelecionado'] = $horario;
-            criarTabelaHorarios($dataSelecionada);
-            limparTabelaHorarios();
-            ?>
+            //criarTabelaHorarios($dataSelecionada);
+            limparTabelaHorarios();?>
+          </select> 
+            
+            
         </label>
 
         <input type="submit" value="Marcar Consulta">

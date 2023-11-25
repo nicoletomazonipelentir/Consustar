@@ -33,7 +33,7 @@ function loginUser($email, $senha) {
         return "<div class='alert alert-danger'>Email não existe.</div>";
     }
 }
-
+/*
 function criarTabelaHorarios($dataAtual) {
     $conn = ConectaBD();
 
@@ -55,7 +55,7 @@ function criarTabelaHorarios($dataAtual) {
     // Fecha a conexão
     $conn->close();
 }
-
+*/
 function limparTabelaHorarios() {
     $conn = ConectaBD();
     
@@ -70,8 +70,8 @@ function limparTabelaHorarios() {
 function Cadastro($fullname,$email,$senha,$senhaRepeat,$telefone,$cpf,$numCarteira,$endereco,$numero,$cidade,$estado,$cep,$bairro) {
     $conn = ConectaBD();
 
-    $sql = "INSERT INTO users (full_name,email,senha,telefone,cpf,numCarteira,endereco,numero,cidade,estado,cep,bairro) 
-    VALUES ('$fullname','$email','$senha','$telefone','$cpf','$numCarteira','$endereco','$numero','$cidade','$estado','$cep','$bairro')";
+    $sql = "INSERT INTO users (full_name,email,senha,cpf,telefone,numCarteira,endereco,numero,cidade,estado,cep,bairro) 
+    VALUES ('$fullname','$email','$senha','$cpf','$telefone','$numCarteira','$endereco','$numero','$cidade','$estado','$cep','$bairro')";
     
     if ($conn->query($sql) === TRUE) {
         header("Location: login.php");
@@ -87,24 +87,23 @@ function horariosVagos($dataAtual) {
     $dataObj = DateTime::createFromFormat('d/m/Y', $dataAtual);
     $dataFormatada = $dataObj->format('Y-m-d');
 
-    $sql = "SELECT * FROM Horarios WHERE id = $dataFormatada";
+    // Usando prepared statements para evitar SQL Injection
+    $sql = "SELECT * FROM Horarios WHERE id = ?";
     $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $dataFormatada);
     $stmt->execute();
+    
     $result = $stmt->get_result();
-
+    
     if ($result->num_rows > 0) {
-        echo "<select name='horarioSelecionado'>";
-
         while ($row = $result->fetch_assoc()) {
             echo "<option value='" . $row["horario"] . "'>" . $row["horario"] . "</option>";
         }
-
-        echo "</select>";
     } else {
         echo "Nenhum resultado encontrado.";
     }
 
-    $stmt->close();
+    // Não feche a conexão aqui se precisar dela em outras partes do código
     $conn->close();
 }
 
