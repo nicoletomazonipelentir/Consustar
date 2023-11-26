@@ -25,9 +25,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       header("Location: index.php");
     }
 
-    
-    //mostraMarcado($_SESSION["email"]);
-    
     if (isset($_POST['cancelarConsulta'])) {
       restaurarHorario($data,$horario);
       deletaPaciente($email);

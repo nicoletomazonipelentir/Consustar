@@ -37,10 +37,10 @@ require('header.php');
         ?>
       <form action="login.php" method="post">
         <div class="form-group">
-            <input type="email" placeholder="Enter Email:" name="email" class="form-control">
+            <input type="email" placeholder="Coloque seu email:" name="email" class="form-control">
         </div>
         <div class="form-group">
-            <input type="password" placeholder="Enter Password:" name="password" class="form-control">
+            <input type="password" placeholder="Coloque sua senha:" name="password" class="form-control">
         </div>
         <div class="form-btn">
             <input type="submit" value="Login" name="login" class="btn btn-primary">

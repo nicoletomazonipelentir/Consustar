@@ -97,14 +97,34 @@ function horariosVagos($dataAtual) {
     
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            echo "<option value='" . $row["horario"] . "'>" . $row["horario"] . "</option>";
+
+            if (compararHoras($row["horario"])) {
+                echo "<option value='" . $row["horario"] . "'>" . $row["horario"] . "</option>";
+            }
         }
     } else {
         echo "Nenhum resultado encontrado.";
     }
 
-    // Não feche a conexão aqui se precisar dela em outras partes do código
     $conn->close();
+}
+
+function compararHoras($horaDoBanco) {//arrumar isso pra equivaler a data tbm
+    // Obtém a hora atual no formato "H:i"
+    $horaAtual = date("H:i");
+
+    // Obtém a hora do banco de dados (assumindo que $horaDoBanco é uma string no formato "H:i")
+    $horaDoBancoObjeto = DateTime::createFromFormat("H:i", $horaDoBanco);
+
+    // Converte a hora atual para um objeto DateTime
+    $horaAtualObjeto = DateTime::createFromFormat("H:i", $horaAtual);
+
+    // Compara os objetos DateTime
+    if ($horaAtualObjeto > $horaDoBancoObjeto) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function pacientes($data, $horario,$email){
@@ -180,7 +200,6 @@ function excluirHorario($data, $horario){
     $conn->close();
 }
 
-//tem q testar isso 
 function restaurarHorario($data,$horario) {
     $conn = ConectaBD();
     $sqlInserirHorario = "INSERT INTO horarios (id, horario) VALUES ('$data', '$horario')";
@@ -255,9 +274,36 @@ function verificaPaciente($email){
 
 function deletaPaciente($email){
     $conn = ConectaBD();
-    $sqlExcluirHorario = "DELETE FROM pacientes WHERE email = '$email'";
-    $conn->query($sqlExcluirHorario);
 
+    // Use instrução preparada para evitar injeção de SQL
+    $sqlExcluirHorario = "DELETE FROM pacientes WHERE email = ?";
+    
+    // Prepara a instrução
+    $stmt = $conn->prepare($sqlExcluirHorario);
+
+    // Verifica se a preparação foi bem-sucedida
+    if ($stmt === false) {
+        die('Erro na preparação da instrução SQL: ' . $conn->error);
+    }
+
+    // Vincula o parâmetro
+    $stmt->bind_param("s", $email);
+
+    // Executa a instrução
+    if ($stmt->execute()) {
+        // Sucesso
+        echo "Paciente deletado com sucesso.";
+    } else {
+        // Erro
+        echo "Erro ao deletar paciente: " . $stmt->error;
+    }
+
+    // Fecha a instrução e a conexão
+    $stmt->close();
     $conn->close();
 }
+
+
+
+
 ?>
