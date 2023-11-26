@@ -70,8 +70,8 @@ function limparTabelaHorarios() {
 function Cadastro($fullname,$email,$senha,$senhaRepeat,$telefone,$cpf,$numCarteira,$endereco,$numero,$cidade,$estado,$cep,$bairro) {
     $conn = ConectaBD();
 
-    $sql = "INSERT INTO users (full_name,email,senha,cpf,telefone,numCarteira,endereco,numero,cidade,estado,cep,bairro) 
-    VALUES ('$fullname','$email','$senha','$cpf','$telefone','$numCarteira','$endereco','$numero','$cidade','$estado','$cep','$bairro')";
+    $sql = "INSERT INTO users (full_name,email,senha,telefone,cpf,numCarteira,endereco,numero,cidade,estado,cep,bairro) 
+    VALUES ('$fullname','$email','$senha','$telefone','$cpf','$numCarteira','$endereco','$numero','$cidade','$estado','$cep','$bairro')";
     
     if ($conn->query($sql) === TRUE) {
         header("Location: login.php");
@@ -278,7 +278,7 @@ function deletaPaciente($email){
     $conn = ConectaBD();
 
     // Use instrução preparada para evitar injeção de SQL
-    $sqlExcluirHorario = "DELETE FROM pacientes WHERE email = $email";
+    $sqlExcluirHorario = "DELETE FROM pacientes WHERE email = '$email'";
     $conn->query($sqlExcluirHorario);
     $conn->close();
 }
