@@ -99,7 +99,7 @@ function horariosVagos($dataAtual) {
         while ($row = $result->fetch_assoc()) {
 
             if (compararHoras($row["horario"],$dataFormatada)) {
-                echo "<option value='" . $row["horario"] . "'>" . $row["horario"] . "</option>";
+                echo "<option value='" . $row["id"] . "'>" . $row["horario"] . "</option>";
             }
         }
     } else {
@@ -202,12 +202,22 @@ function excluirHorario($data, $horario){
     $conn->close();
 }
 
-function restaurarHorario($data,$horario) {
+function restaurarHorario($data, $horario) {
     $conn = ConectaBD();
-    $sqlInserirHorario = "INSERT INTO horarios (id, horario) VALUES ('$data', '$horario')";
-    $conn->query($sqlInserirHorario);
+    
+    // Usando declaração preparada para evitar injeção de SQL
+    $sqlInserirHorario = $conn->prepare("INSERT INTO horarios (id, horario) VALUES (?, ?)");
+    
+    // Substituir os marcadores de posição pelos valores reais
+    $sqlInserirHorario->bind_param("ss", $data, $horario);
+    
+    // Executar a consulta preparada
+    $sqlInserirHorario->execute();
+    
+    // Fechar a conexão
     $conn->close();
 }
+
 
 function verificaCadastro($email){
     $conn = ConectaBD();
