@@ -94,10 +94,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
   <div class="container" id="c.F">
-    <h1>Sua consulta foi agendada!</h1>
+    <h1 style="color:#005BAB;">Sua consulta foi agendada!</h1>
     <?php
     mostraMarcado($_SESSION["email"]);
     ?>
+    
 
     <button><a href="logout.php">Sair</button>
    <!-- index.php -->

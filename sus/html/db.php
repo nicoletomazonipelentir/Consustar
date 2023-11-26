@@ -33,29 +33,7 @@ function loginUser($email, $senha) {
         return "<div class='alert alert-danger'>Email não existe.</div>";
     }
 }
-/*
-function criarTabelaHorarios($dataAtual) {
-    $conn = ConectaBD();
 
-    $dataObj = DateTime::createFromFormat('d/m/Y', $dataAtual);
-    $dataFormatada = $dataObj->format('Y-m-d');
-
-    $horarios = array('08:00', '08:20', '08:40', '09:00', '09:20', '09:40', '10:00', '10:20', '10:40', '11:00', '11:20', '11:40', '13:00', '13:20', '13:40', '14:00', '14:20', '14:40', '15:00', '15:20', '15:40', '16:00', '16:20', '16:40');
-
-    foreach ($horarios as $horario) {
-        $sqlSelect = "SELECT * FROM Horarios WHERE id = '$dataFormatada' AND horario = '$horario'";
-        $result = $conn->query($sqlSelect);
-
-        if ($result->num_rows == 0) {
-            $sqlInsert = "INSERT INTO Horarios (id, horario) VALUES ('$dataFormatada', '$horario')";
-            $conn->query($sqlInsert);
-        } 
-    }
-
-    // Fecha a conexão
-    $conn->close();
-}
-*/
 function limparTabelaHorarios() {
     $conn = ConectaBD();
     
@@ -154,39 +132,6 @@ function adicionarPaciente($conn, $full_name, $horario, $dataFormatada, $cpf, $n
     $conn->query($sql_paciente);
 }
 
-// function tabelaOcupados(){
-//     $conn = ConectaBD();
-//     $sql = "SELECT id, horario FROM horarios WHERE id='".date("Y-m-d")."'";
-//     $result = $conn->query($sql);
-
-//     if ($result->num_rows > 0) {
-//         $numColunas = 3;
-//         $colunaAtual = 0;
-
-//         while ($row = $result->fetch_assoc()) {
-            
-//             if ($colunaAtual == 0) {
-//                 echo "<tr>";
-//             }
-//             echo "<td>" . $row["horario"] . "</td>";
-
-//             $colunaAtual++;
-
-//             if ($colunaAtual == $numColunas) {
-//                 echo "</tr>";
-//                 $colunaAtual = 0;
-//             }
-//         }
-//         if ($colunaAtual != 0) {
-//             echo "</tr>";
-//         }
-
-//     } else {
-//         echo "Todos os horários estão ocupados";
-//     }
-//     $conn->close();
-// }
-
 function tabelaOcupados(){
     $conn = ConectaBD();
 
@@ -234,8 +179,6 @@ function tabelaOcupados(){
 
     $conn->close();
 }
-
-
 
 function excluirHorario($data, $horario){
     $conn = ConectaBD();
@@ -293,8 +236,8 @@ function mostraMarcado($email){
         while($row = $result->fetch_assoc()) {
             $dataFormatada = date('d/m/Y', strtotime($row["dia"]));
 
-            echo '<h2>Data: '.$dataFormatada.'</h2>
-            <h2>Hora: '.$row["horario"].'</h2>';
+            echo '<h2 style="color:#00296B;">Data: '.$dataFormatada.'</h2>
+            <h2 style="color:#00296B;">Hora: '.$row["horario"].'</h2>';
 
             return $row;
         }
@@ -345,9 +288,4 @@ function deletaPaciente($email){
     $stmt->close();
     $conn->close();
 }
-
-
-
-
-
 ?>
