@@ -11,7 +11,7 @@
 </head>
 <body>
     <header class="titulo">
-        <img src="logoconsustar.png" alt="Logo da conSUStar" id="logo"/> 
+        <a href="home.php"><img src="logoconsustar.png" alt="Logo da conSUStar" id="logo"/> </a>
     </header>
 </body>
 </html>
