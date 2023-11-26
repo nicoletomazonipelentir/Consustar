@@ -34,7 +34,7 @@ function loginUser($email, $senha) {
     }
 }
 
-function limparTabelaHorarios() {
+function limparTabelaHorarios($horario) {
     $conn = ConectaBD();
     
     $dataLimite = date("Y-m-d");

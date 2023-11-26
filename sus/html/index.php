@@ -39,7 +39,7 @@ include('db.php');
             $horario=horariosVagos($dataSelecionada);
             $_POST['horarioSelecionado'] = $horario;
             //criarTabelaHorarios($dataSelecionada);
-            limparTabelaHorarios();?>
+            limparTabelaHorarios($horario);?>
           </select> 
             
             
