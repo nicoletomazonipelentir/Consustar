@@ -121,8 +121,6 @@ function compararHoras($horaDoBanco) {
     }
 }
 
-
-
 function pacientes($data, $horario,$email){
     $conn = ConectaBD();
     $sql_users = "SELECT full_name, cpf, numCarteira FROM users WHERE email='".$email."'";
@@ -156,21 +154,68 @@ function adicionarPaciente($conn, $full_name, $horario, $dataFormatada, $cpf, $n
     $conn->query($sql_paciente);
 }
 
+// function tabelaOcupados(){
+//     $conn = ConectaBD();
+//     $sql = "SELECT id, horario FROM horarios WHERE id='".date("Y-m-d")."'";
+//     $result = $conn->query($sql);
+
+//     if ($result->num_rows > 0) {
+//         $numColunas = 3;
+//         $colunaAtual = 0;
+
+//         while ($row = $result->fetch_assoc()) {
+            
+//             if ($colunaAtual == 0) {
+//                 echo "<tr>";
+//             }
+//             echo "<td>" . $row["horario"] . "</td>";
+
+//             $colunaAtual++;
+
+//             if ($colunaAtual == $numColunas) {
+//                 echo "</tr>";
+//                 $colunaAtual = 0;
+//             }
+//         }
+//         if ($colunaAtual != 0) {
+//             echo "</tr>";
+//         }
+
+//     } else {
+//         echo "Todos os horários estão ocupados";
+//     }
+//     $conn->close();
+// }
+
 function tabelaOcupados(){
     $conn = ConectaBD();
-    $sql = "SELECT id, horario FROM horarios WHERE id='".date("Y-m-d")."'";
+
+    $sql = "SELECT id, horario FROM horarios WHERE id='" . date("Y-m-d") . "'";
+
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
         $numColunas = 3;
         $colunaAtual = 0;
 
+        $horariosArray = array();
+
         while ($row = $result->fetch_assoc()) {
+            $horariosArray[] = $row["horario"];
+        }
+
+        function compararHorarios($a, $b) {
+            return strtotime($a) - strtotime($b);
+        }
+
+        usort($horariosArray, 'compararHorarios');
+
+        foreach ($horariosArray as $horario) {
             if ($colunaAtual == 0) {
                 echo "<tr>";
             }
-            echo "<td>" . $row["horario"] . "</td>";
 
+            echo "<td>" . $horario . "</td>";
             $colunaAtual++;
 
             if ($colunaAtual == $numColunas) {
@@ -178,6 +223,7 @@ function tabelaOcupados(){
                 $colunaAtual = 0;
             }
         }
+
         if ($colunaAtual != 0) {
             echo "</tr>";
         }
@@ -185,8 +231,11 @@ function tabelaOcupados(){
     } else {
         echo "Todos os horários estão ocupados";
     }
+
     $conn->close();
 }
+
+
 
 function excluirHorario($data, $horario){
     $conn = ConectaBD();
@@ -199,20 +248,11 @@ function excluirHorario($data, $horario){
 function restaurarHorario($data, $horario) {
     $conn = ConectaBD();
     
-    // Usando declaração preparada para evitar injeção de SQL
     $sqlInserirHorario = $conn->prepare("INSERT INTO horarios (id, horario) VALUES ('$data', '$horario')");
-    
-    // Substituir os marcadores de posição pelos valores reais
-    //$sqlInserirHorario->bind_param("ss", , );
-    
-    // Executar a consulta preparada
     $sqlInserirHorario->execute();
     
-    // Fechar a conexão
     $conn->close();
 }
-
-
 
 function verificaCadastro($email){
     $conn = ConectaBD();
@@ -282,13 +322,10 @@ function verificaPaciente($email){
 function deletaPaciente($email){
     $conn = ConectaBD();
 
-    // Use instrução preparada para evitar injeção de SQL
     $sqlExcluirPaciente = "DELETE FROM pacientes WHERE email = ?";
     
-    // Preparar a instrução
     $stmt = $conn->prepare($sqlExcluirPaciente);
 
-    // Verificar se a preparação foi bem-sucedida
     if ($stmt === false) {
         echo "Erro na preparação da consulta: " . $conn->error;
         $conn->close();
@@ -297,18 +334,14 @@ function deletaPaciente($email){
         echo "não sei o retorno";
     }
 
-    // Vincular parâmetro e executar a instrução
     $stmt->bind_param("s", $email);
     $stmt->execute();
 
-    // Verificar se a execução foi bem-sucedida
     if ($stmt->affected_rows > 0) {
         echo "Paciente excluído com sucesso.";
     } else {
         echo "Erro ao excluir paciente: " . $conn->error;
     }
-
-    // Fechar a instrução e a conexão
     $stmt->close();
     $conn->close();
 }
