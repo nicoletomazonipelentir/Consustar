@@ -19,15 +19,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_SESSION["email"];
     pacientes($data, $horario, $email);
     excluirHorario($data, $horario);
+
+    if (isset($_POST['cancelarConsulta'])) {
+      restaurarHorario($data,$horario);
+      deletaPaciente($email);//isso aqui ta com problema 
+      header("Location: index.php");
+    }
   }else{
     // print_r($_POST);
     // print_r($row);
-    header("Location: index.php");
-  }
-
-  if (isset($_POST['cancelarConsulta'])) {
-    restaurarHorario($data,$horario);
-    deletaPaciente($email);//isso aqui ta com problema 
     header("Location: index.php");
   }
     

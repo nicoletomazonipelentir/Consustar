@@ -288,6 +288,8 @@ function deletaPaciente($email){
         echo "Erro na preparação da consulta: " . $conn->error;
         $conn->close();
         return;
+    }else{
+        echo "não sei o retorno";
     }
 
     // Vincular parâmetro e executar a instrução
