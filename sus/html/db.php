@@ -98,7 +98,7 @@ function horariosVagos($dataAtual) {
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
 
-            if (compararHoras($row["horario"])) {
+            if (compararHoras($row["horario"],$dataFormatada)) {
                 echo "<option value='" . $row["horario"] . "'>" . $row["horario"] . "</option>";
             }
         }
@@ -109,7 +109,7 @@ function horariosVagos($dataAtual) {
     $conn->close();
 }
 
-function compararHoras($horaDoBanco) {//arrumar isso pra equivaler a data tbm
+function compararHoras($horaDoBanco ,$data) {//arrumar isso pra equivaler a data tbm
     // Obtém a hora atual no formato "H:i"
     $horaAtual = date("H:i");
 
@@ -120,9 +120,11 @@ function compararHoras($horaDoBanco) {//arrumar isso pra equivaler a data tbm
     $horaAtualObjeto = DateTime::createFromFormat("H:i", $horaAtual);
 
     // Compara os objetos DateTime
-    if ($horaAtualObjeto > $horaDoBancoObjeto) {
+    if ($horaAtualObjeto > $horaDoBancoObjeto && date("d/m/Y")==$data) {
         return true;
-    } else {
+    } else if (date("d/m/Y")!=$data){
+        return true;
+    }else{
         return false;
     }
 }
@@ -276,30 +278,8 @@ function deletaPaciente($email){
     $conn = ConectaBD();
 
     // Use instrução preparada para evitar injeção de SQL
-    $sqlExcluirHorario = "DELETE FROM pacientes WHERE email = ?";
-    
-    // Prepara a instrução
-    $stmt = $conn->prepare($sqlExcluirHorario);
-
-    // Verifica se a preparação foi bem-sucedida
-    if ($stmt === false) {
-        die('Erro na preparação da instrução SQL: ' . $conn->error);
-    }
-
-    // Vincula o parâmetro
-    $stmt->bind_param("s", $email);
-
-    // Executa a instrução
-    if ($stmt->execute()) {
-        // Sucesso
-        echo "Paciente deletado com sucesso.";
-    } else {
-        // Erro
-        echo "Erro ao deletar paciente: " . $stmt->error;
-    }
-
-    // Fecha a instrução e a conexão
-    $stmt->close();
+    $sqlExcluirHorario = "DELETE FROM pacientes WHERE email = $email";
+    $conn->query($sqlExcluirHorario);
     $conn->close();
 }
 
