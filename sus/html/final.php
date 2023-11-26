@@ -4,32 +4,32 @@ session_start();
 require('header.php');
 include('db.php');
 
-print_r($_POST);
+// print_r($_POST);
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $row=pegaragenda($_SESSION["email"]);
-   print_r($row);
-   $data=$_POST['dataSelecionada'];
-   $horario=$_POST['horarioSelecionado'];
+  $row=pegaragenda($_SESSION["email"]);
+//  print_r($row);
+  $data=$_POST['dataSelecionada'];
+  $horario=$_POST['horarioSelecionado'];
 
-    if ($data=='' || $horario=='') {
-      $data=$row['dia'];
-      $horario=$row['horario'];
-    }
-    if (array_key_exists('horarioSelecionado', $_POST)) {
-      $email = $_SESSION["email"];
-      pacientes($data, $horario, $email);
-      excluirHorario($data, $horario);
-    }else{
-      print_r($_POST);
-      print_r($row);
-      header("Location: index.php");
-    }
+  if ($data=='' || $horario=='') {
+    $data=$row['dia'];
+    $horario=$row['horario'];
+  }
+  if (array_key_exists('horarioSelecionado', $_POST)) {
+    $email = $_SESSION["email"];
+    pacientes($data, $horario, $email);
+    excluirHorario($data, $horario);
+  }else{
+    // print_r($_POST);
+    // print_r($row);
+    header("Location: index.php");
+  }
 
-    if (isset($_POST['cancelarConsulta'])) {
-      restaurarHorario($data,$horario);
-      deletaPaciente($email);
-      header("Location: index.php");
-    }
+  if (isset($_POST['cancelarConsulta'])) {
+    restaurarHorario($data,$horario);
+    deletaPaciente($email);//isso aqui ta com problema 
+    header("Location: index.php");
+  }
     
 }
 ?>

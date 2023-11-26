@@ -278,10 +278,34 @@ function deletaPaciente($email){
     $conn = ConectaBD();
 
     // Use instrução preparada para evitar injeção de SQL
-    $sqlExcluirHorario = "DELETE FROM pacientes WHERE email = '$email'";
-    $conn->query($sqlExcluirHorario);
+    $sqlExcluirPaciente = "DELETE FROM pacientes WHERE email = ?";
+    
+    // Preparar a instrução
+    $stmt = $conn->prepare($sqlExcluirPaciente);
+
+    // Verificar se a preparação foi bem-sucedida
+    if ($stmt === false) {
+        echo "Erro na preparação da consulta: " . $conn->error;
+        $conn->close();
+        return;
+    }
+
+    // Vincular parâmetro e executar a instrução
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+
+    // Verificar se a execução foi bem-sucedida
+    if ($stmt->affected_rows > 0) {
+        echo "Paciente excluído com sucesso.";
+    } else {
+        echo "Erro ao excluir paciente: " . $conn->error;
+    }
+
+    // Fechar a instrução e a conexão
+    $stmt->close();
     $conn->close();
 }
+
 
 
 
