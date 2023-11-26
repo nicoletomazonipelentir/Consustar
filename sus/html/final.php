@@ -4,10 +4,8 @@ session_start();
 require('header.php');
 include('db.php');
 
-// print_r($_POST);
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $row=pegaragenda($_SESSION["email"]);
-//  print_r($row);
   $data=$_POST['dataSelecionada'];
   $horario=$_POST['horarioSelecionado'];
 
@@ -22,12 +20,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (isset($_POST['cancelarConsulta'])) {
       restaurarHorario($data,$horario);
-      deletaPaciente($email);//isso aqui ta com problema 
+      deletaPaciente($email);
       header("Location: index.php");
     }
   }else{
-    // print_r($_POST);
-    // print_r($row);
     header("Location: index.php");
   }
     
@@ -101,14 +97,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <h1>Sua consulta foi agendada!</h1>
     <?php
     mostraMarcado($_SESSION["email"]);
-    //print_r(mostraMarcado($_SESSION["email"]));
     ?>
 
     <button><a href="logout.php">Sair</button>
    <!-- index.php -->
    <form method="post">
-      <!-- <input type="hidden" name="dataSelecionada" value="<?php echo isset($data) ? $data : 'caca'; ?>">
-      <input type="hidden" name="horarioSelecionado" value="<?php echo isset($horario) ? $horario : 'cacaa'; ?>"> -->
+      <input type="hidden" name="dataSelecionada" value="<?php $row=pegaragenda($_SESSION["email"]); echo isset($data) ? $data :$row['dia']; ?>">
+      <input type="hidden" name="horarioSelecionado" value="<?php $row=pegaragenda($_SESSION["email"]); echo isset($horario) ? $row['horario'] : 'cacaa'; ?>">
 
 
 

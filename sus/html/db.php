@@ -98,8 +98,8 @@ function horariosVagos($dataAtual) {
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
 
-            if (compararHoras($row["horario"],$dataFormatada)) {
-                echo "<option value='" . $row["id"] . "'>" . $row["horario"] . "</option>";
+            if (compararHoras($row["horario"])) {
+                echo "<option value='" . $row["horario"] . "'>" . $row["horario"] . "</option>";
             }
         }
     } else {
@@ -109,25 +109,19 @@ function horariosVagos($dataAtual) {
     $conn->close();
 }
 
-function compararHoras($horaDoBanco ,$data) {//arrumar isso pra equivaler a data tbm
-    // Obtém a hora atual no formato "H:i"
+function compararHoras($horaDoBanco) {
     $horaAtual = date("H:i");
-
-    // Obtém a hora do banco de dados (assumindo que $horaDoBanco é uma string no formato "H:i")
     $horaDoBancoObjeto = DateTime::createFromFormat("H:i", $horaDoBanco);
-
-    // Converte a hora atual para um objeto DateTime
     $horaAtualObjeto = DateTime::createFromFormat("H:i", $horaAtual);
 
-    // Compara os objetos DateTime
-    if ($horaAtualObjeto > $horaDoBancoObjeto && date("d/m/Y")==$data) {
-        return true;
-    } else if (date("d/m/Y")!=$data){
+    if ($horaAtualObjeto > $horaDoBancoObjeto) {
         return true;
     }else{
         return false;
     }
 }
+
+
 
 function pacientes($data, $horario,$email){
     $conn = ConectaBD();
@@ -206,10 +200,10 @@ function restaurarHorario($data, $horario) {
     $conn = ConectaBD();
     
     // Usando declaração preparada para evitar injeção de SQL
-    $sqlInserirHorario = $conn->prepare("INSERT INTO horarios (id, horario) VALUES (?, ?)");
+    $sqlInserirHorario = $conn->prepare("INSERT INTO horarios (id, horario) VALUES ('$data', '$horario')");
     
     // Substituir os marcadores de posição pelos valores reais
-    $sqlInserirHorario->bind_param("ss", $data, $horario);
+    //$sqlInserirHorario->bind_param("ss", , );
     
     // Executar a consulta preparada
     $sqlInserirHorario->execute();
@@ -217,6 +211,7 @@ function restaurarHorario($data, $horario) {
     // Fechar a conexão
     $conn->close();
 }
+
 
 
 function verificaCadastro($email){
