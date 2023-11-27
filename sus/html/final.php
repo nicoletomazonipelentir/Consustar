@@ -101,12 +101,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
 
     <button><a href="logout.php">Sair</button>
-   <!-- index.php -->
    <form method="post">
       <input type="hidden" name="dataSelecionada" value="<?php $row=pegaragenda($_SESSION["email"]); echo isset($data) ? $data :$row['dia']; ?>">
       <input type="hidden" name="horarioSelecionado" value="<?php $row=pegaragenda($_SESSION["email"]); echo isset($horario) ? $row['horario'] : 'cacaa'; ?>">
-
-
 
       <button type="submit" name="cancelarConsulta">Cancelar Consulta</button>
     </form>
@@ -114,5 +111,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </div>
 
 </body>
-
-</html>
