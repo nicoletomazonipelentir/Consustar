@@ -19,8 +19,8 @@ require('header.php');
             $email = $_POST["email"];
             $senha = $_POST["senha"];
             $senhaRepeat = $_POST["repeat_senha"];
-            $cpf = $_POST["cpf"];
             $telefone = $_POST["telefone"];
+            $cpf = $_POST["cpf"];
             $numCarteira = $_POST["numCarteira"];
             $endereco = $_POST["endereco"];
             $bairro = $_POST['bairro'];
@@ -33,7 +33,7 @@ require('header.php');
            $passwordHash = password_hash($senha, PASSWORD_DEFAULT);
 
            $errors = array();
-           if (empty($fullName) OR empty($email) OR empty($senha) OR empty($senhaRepeat) OR empty($cpf) OR empty($telefone) OR empty($numCarteira) OR empty($endereco) OR empty($numero) OR empty($cidade) OR empty($estado) OR empty($cep) OR empty($bairro)) {
+           if (empty($fullName) OR empty($email) OR empty($senha) OR empty($senhaRepeat) OR empty($telefone) OR empty($cpf) OR empty($numCarteira) OR empty($endereco) OR empty($numero) OR empty($cidade) OR empty($estado) OR empty($cep) OR empty($bairro)) {
             array_push($errors,"Você deve preencher todos os campos.");
            }
            if (!filter_var($email, FILTER_VALIDATE_EMAIL) || $senha!==$senhaRepeat) {
@@ -76,10 +76,10 @@ require('header.php');
                     <input type="password" class="form-control" name="repeat_senha" placeholder="Repetir senha:">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" name="cpf" placeholder="CPF:">
+                    <input type="text" class="form-control" name="telefone" placeholder="Telefone:">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" name="telefone" placeholder="Telefone:">
+                    <input type="text" class="form-control" name="cpf" placeholder="CPF:">
                 </div>
                 <div class="form-group">
                     <input type="text" class="form-control" name="numCarteira" placeholder="Número da carteira do SUS:">
